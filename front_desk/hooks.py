@@ -99,9 +99,9 @@ doc_events = {
 #	"Salary Slip":{
 #		"validate": "front_desk.common.lwp_d"
 #	},
-	"Salary Slip":{
-		"validate": "front_desk.common_12.salary_slip_deduction"
-	},
+#	"Salary Slip":{
+#		"validate": "front_desk.common_12.salary_slip_deduction"
+#	},
 #	"Teacher Schedule":{
 #        	"validate": "front_desk.common.sync_teacher_student"
 #	}
