@@ -1,4 +1,3 @@
-  
 # Copyright (c) 2020, QCS and Contributors
 # License: GNU General Public License v3. See license.txt
 
