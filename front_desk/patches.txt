@@ -1,0 +1,1 @@
+front_desk.patches.v12_0.remove_work_order_kanban_column
