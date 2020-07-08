@@ -16,7 +16,18 @@ def generate_attendance_entries():
 	attendance_list = get_attendance_records()
 	for attendance in attendance_list:
 		copy_shift_details()
-
+		update_time_in_blank()
+		update_time_out_blank()
+		update_start_time_blank()
+		update_end_time_blank()
+		update_late_in_blank()
+		update_early_out_blank()
+		update_total_time_blank()
+		update_total_working_hours_blank()
+		update_diff_working_hours_blank()
+		if frappe.get_meta("Attendance").has_field("shift_type"):
+			update_shift_type_blank()
+		
 def copy_shift_details():
 	frappe.db.sql("""
 		UPDATE `tabAttendance`
@@ -33,4 +44,52 @@ def update_time_in_blank():
 		frappe.db.sql("""
 		UPDATE `tabAttendance`
 		SET `time_in` = NULL
+	""")
+
+def update_time_out_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `time_out` = NULL
+	""")
+
+def update_start_time_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `start_time` = NULL
+	""")
+
+def update_end_time_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `end_time` = NULL
+	""")
+
+def update_late_in_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `late_in` = NULL
+	""")
+
+def update_early_out_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `early_out` = NULL
+	""")
+
+def update_total_working_hours_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `total_working_hours` = NULL
+	""")
+
+def update_total_time_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `total_time` = NULL
+	""")
+
+def update_diff_working_hours_blank():
+		frappe.db.sql("""
+		UPDATE `tabAttendance`
+		SET `diff_working_hours` = NULL
 	""")
