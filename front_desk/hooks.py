@@ -96,6 +96,9 @@ doc_events = {
 	"Student Group":{
 		"validate": "front_desk.common_12.manage_staff_student_permission"
 	},
+	"Attendance":{
+		"validate": "front_desk.common_12.redundant_attendance_custom_fields"
+	},
 #	"Salary Slip":{
 #		"validate": "front_desk.common.lwp_d"
 #	},

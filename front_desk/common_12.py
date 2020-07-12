@@ -18,9 +18,18 @@ def remove_custom_field_kanban_column():
     if frappe.db.exists("Custom Field", "Work Order-kanban_column"):
         frappe.delete_doc("Custom Field", "Work Order-kanban_column")
 
-@frappe.whitelist()
-def redundant_attendance_custom_fields():
-    return
+def redundant_attendance_custom_fields(attendance, method):
+    attendance.set('time_in',"")
+    attendance.set('time_out',"")
+    attendance.set('start_time',"")
+    attendance.set('end_time',"")
+    attendance.set('late_in',"")
+    attendance.set('early_out',"")
+    attendance.set('total_working_hours',"")
+    attendance.set('diff_working_hours',"")
+    attendance.set('total_time',"")
+    attendance.set('total_time',"")
+    attendance.set('shift_type',"")
 
 @frappe.whitelist()
 def mark_attendance():
