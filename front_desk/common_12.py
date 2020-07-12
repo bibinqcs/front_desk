@@ -29,7 +29,8 @@ def redundant_attendance_custom_fields(attendance, method):
     attendance.set('diff_working_hours',"")
     attendance.set('total_time',"")
     attendance.set('total_time',"")
-    attendance.set('shift_type',"")
+    if attendance.shift_type:
+        attendance.set('shift_type',"")
 
 @frappe.whitelist()
 def mark_attendance():
