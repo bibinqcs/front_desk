@@ -19,6 +19,10 @@ def remove_custom_field_kanban_column():
         frappe.delete_doc("Custom Field", "Work Order-kanban_column")
 
 @frappe.whitelist()
+def redundant_attendance_custom_fields():
+    return
+
+@frappe.whitelist()
 def mark_attendance():
     today = datetime.today()
 

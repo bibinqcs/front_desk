@@ -110,7 +110,7 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-#scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"front_desk.tasks.all"
 # 	],
@@ -121,13 +121,14 @@ doc_events = {
 # 	"hourly": [
 # 		"front_desk.tasks.hourly"
 # 	],
-# 	"weekly": [
+ 	"weekly": [
 # 		"front_desk.tasks.weekly"
-# 	]
+		"front_desk.common_12.remove_custom_field_kanban_column",
+ 	]
 # 	"monthly": [
 # 		"front_desk.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

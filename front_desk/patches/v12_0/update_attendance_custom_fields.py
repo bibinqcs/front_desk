@@ -4,18 +4,52 @@ from frappe.utils import getdate, today
 
 def execute():
 	frappe.reload_doc("HR", "doctype", "Attendance")
-	generate_attendance_entries()
 
-def get_attendance_records():
-	return frappe.db.get_list('Attendance', filters={
-		'attendance_date': ['>', '2020-03-29']
-		}, fields=['shift_type', 'shift', 'time_in', 'start_time', 'late_in', 'time_out', 'end_time', 'early_out', 'total_working_hours', 'total_time', 'diff_working_hours'
-		], order_by='attendance_date ASC')
+def update_timestamp_records():
+
+		return
+
+
+def get_half_day_attendance():
+	return frappe.db.get_all('Attendance',
+		filters={
+			'status': 'Half Day'
+		},
+		fields=['time_in', 'start_time', 'late_in', 'time_out', 'end_time', 'early_out', 'total_working_hours', 'total_time', 'diff_working_hours', 'attendance_date'],
+		order_by='attendance_date DESC'
+	)
+
+def get_absent_attendance():
+	return frappe.db.get_all('Attendance',
+		filters={
+			'status': 'Absent'
+		},
+		fields=['time_in', 'start_time', 'late_in', 'time_out', 'end_time', 'early_out', 'total_working_hours', 'total_time', 'diff_working_hours', 'attendance_date'],
+		order_by='attendance_date DESC'
+	)
+
+def get_leave_attendance():
+	return frappe.db.get_all('Attendance',
+		filters={
+			'status': 'On Leave'
+		},
+		fields=['time_in', 'start_time', 'late_in', 'time_out', 'end_time', 'early_out', 'total_working_hours', 'total_time', 'diff_working_hours', 'attendance_date'],
+		order_by='attendance_date DESC'
+	)
+
+def get_biostar_attendance():
+	return frappe.db.get_all('Attendance',
+		filters={
+			'status': 'Present',
+			'attendance_date': ['>', '2020-03-29']
+		},
+		fields=['time_in', 'start_time', 'late_in', 'time_out', 'end_time', 'early_out', 'total_working_hours', 'total_time', 'diff_working_hours', 'attendance_date'],
+		order_by='attendance_date DESC'
+	)
 
 def generate_attendance_entries():
-	attendance_list = get_attendance_records()
+	attendance_list = get_biostar_attendance_records()
 	for attendance in attendance_list:
-		copy_shift_details()
 		update_time_in_blank()
 		update_time_out_blank()
 		update_start_time_blank()
@@ -27,12 +61,6 @@ def generate_attendance_entries():
 		update_diff_working_hours_blank()
 		if frappe.get_meta("Attendance").has_field("shift_type"):
 			update_shift_type_blank()
-		
-def copy_shift_details():
-	frappe.db.sql("""
-		UPDATE `tabAttendance`
-		SET `shift` = `shift_type`
-	""")
 
 def update_shift_type_blank():
 		frappe.db.sql("""
