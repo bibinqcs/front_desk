@@ -5,9 +5,7 @@ import datetime
 
 def execute():
 	frappe.reload_doc("HR", "doctype", "Attendance")
-	update_half_day_records()
-	update_absent_records()
-	update_on_leave_records()
+	update_non_working_day_records()
 	update_employee_checkin_records()
 
 def update_employee_checkin_records():
@@ -17,23 +15,13 @@ def update_employee_checkin_records():
 			update_timestamp_records(attendance)
 			frappe.db.sql("""UPDATE `tabAttendance` SET `shift_type` = NULL WHERE name = %s""", attendance.name)
 
-def update_half_day_records():
+def update_non_working_day_records():
 	attendance_records = get_attendance()
 	for attendance in attendance_records:
-		if attendance.status == 'Half Day':
+		if attendance.status == 'Half Day' or attendance.status == 'Absent' or attendance.status == 'On Leave':
 			update_timestamp_records(attendance)
-
-def update_absent_records():
-	attendance_records = get_attendance()
-	for attendance in attendance_records:
-		if attendance.status == 'Absent':
-			update_timestamp_records(attendance)
-
-def update_on_leave_records():
-	attendance_records = get_attendance()
-	for attendance in attendance_records:
-		if attendance.status == 'On Leave':
-			update_timestamp_records(attendance)
+			if attendance.shift_type and attendance.attendance_date > datetime.date(2020,3,29):
+				frappe.db.sql("""UPDATE `tabAttendance` SET `shift_type` = NULL WHERE name = %s""", attendance.name)
 
 def update_timestamp_records(attendance):
 	frappe.db.sql("""UPDATE `tabAttendance` SET `time_in` = NULL WHERE name = %s""", attendance.name)
