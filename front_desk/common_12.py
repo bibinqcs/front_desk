@@ -21,7 +21,7 @@ def remove_custom_field_kanban_column():
 def custom_attendance(attendance, method):
     shift_time_details(attendance, method)
     update_time_in_and_time_out(attendance, method)
-    #calculate_tardiness(attendance, method)
+    calculate_tardiness(attendance, method)
 
 def shift_time_details(attendance, method):
     if not attendance.start_time and not attendance.end_time:
