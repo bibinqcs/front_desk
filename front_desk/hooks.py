@@ -97,7 +97,9 @@ doc_events = {
 		"validate": "front_desk.common_12.manage_staff_student_permission"
 	},
 	"Attendance":{
-		"validate": "front_desk.common_12.redundant_attendance_custom_fields"
+		#"validate": "front_desk.common_12.redundant_attendance_custom_fields",
+		"before_save": "front_desk.common_12.custom_attendance"
+		#"validate": "front_desk.common_12.time_in_and_time_out"
 #		"validate": "front_desk.common_12.calculate_tardiness"
 	},
 #	"Salary Slip":{

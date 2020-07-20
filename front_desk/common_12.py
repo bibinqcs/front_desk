@@ -18,6 +18,25 @@ def remove_custom_field_kanban_column():
     if frappe.db.exists("Custom Field", "Work Order-kanban_column"):
         frappe.delete_doc("Custom Field", "Work Order-kanban_column")
 
+def custom_attendance(attendance, method):
+    shift_time_details(attendance, method)
+    update_time_in_and_time_out(attendance, method)
+    #calculate_tardiness(attendance, method)
+
+def shift_time_details(attendance, method):
+    if not attendance.start_time and not attendance.end_time:
+        start_time = frappe.get_doc('Shift', attendance.shift).start_time
+        end_time = frappe.get_doc('Shift', attendance.shift).end_time
+        attendance.set('start_time',start_time)
+        attendance.set('end_time',end_time)
+
+def update_time_in_and_time_out(attendance, method):
+    if attendance.in_time_qcs and attendance.out_time_qcs:
+        dt_in = datetime.strptime(str(attendance.in_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
+        dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
+        attendance.time_in = dt_in.time().strftime("%H:%M:%S")
+        attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
+
 def calculate_tardiness(attendance, method):
     if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
         attendance.late_in = 0
@@ -33,13 +52,10 @@ def calculate_tardiness(attendance, method):
         attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
 
 def redundant_attendance_custom_fields(attendance, method):
-    attendance.set('time_in',"")
-    attendance.set('time_out',"")
     attendance.set('late_in',"")
     attendance.set('early_out',"")
     attendance.set('total_working_hours',"")
     attendance.set('diff_working_hours',"")
-    attendance.set('total_time',"")
     attendance.set('total_time',"")
 
 @frappe.whitelist()
