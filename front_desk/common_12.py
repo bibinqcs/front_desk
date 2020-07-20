@@ -18,19 +18,29 @@ def remove_custom_field_kanban_column():
     if frappe.db.exists("Custom Field", "Work Order-kanban_column"):
         frappe.delete_doc("Custom Field", "Work Order-kanban_column")
 
+def calculate_tardiness(attendance, method):
+    if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+        attendance.late_in = 0
+    if datetime.strptime(str(attendance.start_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+        attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
+    if datetime.strptime(str(attendance.end_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
+        attendance.early_out = 0
+    if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
+        attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
+    if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") > datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
+        attendance.diff_working_hours = 0
+    if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
+        attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
+
 def redundant_attendance_custom_fields(attendance, method):
     attendance.set('time_in',"")
     attendance.set('time_out',"")
-    attendance.set('start_time',"")
-    attendance.set('end_time',"")
     attendance.set('late_in',"")
     attendance.set('early_out',"")
     attendance.set('total_working_hours',"")
     attendance.set('diff_working_hours',"")
     attendance.set('total_time',"")
     attendance.set('total_time',"")
-    if attendance.shift_type:
-        attendance.set('shift_type',"")
 
 @frappe.whitelist()
 def mark_attendance():
