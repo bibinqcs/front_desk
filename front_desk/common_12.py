@@ -27,8 +27,10 @@ def shift_time_details(attendance, method):
     if not attendance.start_time and not attendance.end_time:
         start_time = frappe.get_doc('Shift', attendance.shift).start_time
         end_time = frappe.get_doc('Shift', attendance.shift).end_time
+        total_time = frappe.get_doc('Shift', attendance.shift).total_time
         attendance.set('start_time',start_time)
         attendance.set('end_time',end_time)
+        attendance.set('total_time',total_time)
 
 def update_time_in_and_time_out(attendance, method):
     if attendance.in_time_qcs and attendance.out_time_qcs:
@@ -38,18 +40,21 @@ def update_time_in_and_time_out(attendance, method):
         attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
 
 def calculate_tardiness(attendance, method):
-    if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-        attendance.late_in = 0
-    if datetime.strptime(str(attendance.start_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-        attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
-    if datetime.strptime(str(attendance.end_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-        attendance.early_out = 0
-    if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-        attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
-    if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") > datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-        attendance.diff_working_hours = 0
-    if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-        attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
+    if attendance.working_hours:
+        if datetime.strptime(str(attendance.time_out),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+            attendance.total_working_hours = datetime.strptime(str(attendance.time_out),"%H:%M:%S") - datetime.strptime(str(attendance.time_in),"%H:%M:%S")
+        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+            attendance.set('late_in',"")
+        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+            attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
+        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
+            attendance.set('early_out',"")
+        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
+            attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
+        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") > datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
+            attendance.set('diff_working_hours',"")
+        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
+            attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
 
 def redundant_attendance_custom_fields(attendance, method):
     attendance.set('late_in',"")
