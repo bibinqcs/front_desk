@@ -38,6 +38,9 @@ def update_time_in_and_time_out(attendance, method):
         dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
         attendance.time_in = dt_in.time().strftime("%H:%M:%S")
         attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
+    if not attendance.in_time_qcs and not attendance.out_time_qcs:
+        attendance.set('time_in',"")
+        attendance.set('time_out',"")
 
 def calculate_tardiness(attendance, method):
     if attendance.working_hours:
@@ -55,13 +58,11 @@ def calculate_tardiness(attendance, method):
             attendance.set('diff_working_hours',"")
         if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
             attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
-
-def redundant_attendance_custom_fields(attendance, method):
-    attendance.set('late_in',"")
-    attendance.set('early_out',"")
-    attendance.set('total_working_hours',"")
-    attendance.set('diff_working_hours',"")
-    attendance.set('total_time',"")
+    if not attendance.working_hours:
+        attendance.set('late_in',"")
+        attendance.set('early_out',"")
+        attendance.set('total_working_hours',"")
+        attendance.set('diff_working_hours',"")
 
 @frappe.whitelist()
 def mark_attendance():
