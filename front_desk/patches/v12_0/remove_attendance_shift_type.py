@@ -6,6 +6,7 @@ import datetime
 def execute():
 	frappe.reload_doc("HR", "doctype", "Attendance")
 	update_shift_records()
+	frappe.db.sql("""ALTER TABLE `tabAttendance` DROP COLUMN shift_type;""")
 
 def update_shift_records():
 	attendance_records = get_attendance()
