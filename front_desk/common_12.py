@@ -38,7 +38,7 @@ def update_time_in_and_time_out(attendance, method):
         dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
         attendance.time_in = dt_in.time().strftime("%H:%M:%S")
         attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
-    if not attendance.in_time_qcs and not attendance.out_time_qcs:
+    else:
         attendance.set('time_in',"")
         attendance.set('time_out',"")
 
@@ -46,19 +46,26 @@ def calculate_tardiness(attendance, method):
     if attendance.working_hours:
         if datetime.strptime(str(attendance.time_out),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
             attendance.total_working_hours = datetime.strptime(str(attendance.time_out),"%H:%M:%S") - datetime.strptime(str(attendance.time_in),"%H:%M:%S")
-        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-            attendance.set('late_in',"")
-        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
+        else:
+            attendance.set('total_working_hours',"")
+
+        if  datetime.strptime(str(attendance.time_in),"%H:%M:%S") > datetime.strptime(str(attendance.start_time),"%H:%M:%S"):
             attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
-        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-            attendance.set('early_out',"")
+        else:
+            attendance.set('late_in',"")
+
         if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
             attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
-        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") > datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-            attendance.set('diff_working_hours',"")
-        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-            attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
-    if not attendance.working_hours:
+        else:
+            attendance.set('early_out',"")
+
+        if attendance.total_working_hours:
+            if datetime.strptime(str(attendance.total_time),"%H:%M:%S") > datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S"):
+                attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
+            else:
+                attendance.set('diff_working_hours',"")
+        
+    else:
         attendance.set('late_in',"")
         attendance.set('early_out',"")
         attendance.set('total_working_hours',"")
