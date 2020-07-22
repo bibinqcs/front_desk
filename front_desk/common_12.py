@@ -24,7 +24,7 @@ def custom_attendance(attendance, method):
     calculate_tardiness(attendance, method)
 
 def shift_time_details(attendance, method):
-    if not attendance.start_time and not attendance.end_time:
+    if attendance.status == 'Present' and not attendance.start_time and not attendance.end_time:
         start_time = frappe.get_doc('Shift', attendance.shift).start_time
         end_time = frappe.get_doc('Shift', attendance.shift).end_time
         total_time = frappe.get_doc('Shift', attendance.shift).total_time
@@ -34,8 +34,8 @@ def shift_time_details(attendance, method):
 
 def update_time_in_and_time_out(attendance, method):
     if attendance.in_time_qcs and attendance.out_time_qcs:
-        dt_in = datetime.strptime(str(attendance.in_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
-        dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.%f")
+        dt_in = datetime.strptime(str(attendance.in_time_qcs), "%Y-%m-%d %H:%M:%S.000")
+        dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.000")
         attendance.time_in = dt_in.time().strftime("%H:%M:%S")
         attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
     else:
