@@ -13,7 +13,12 @@ def update_employee_checkin_records():
 	for attendance in attendance_records:
 		if attendance.status == 'Present' and attendance.attendance_date > datetime.date(2020,3,29):
 			update_timestamp_records(attendance)
-			frappe.db.sql("""UPDATE `tabAttendance` SET `shift_type` = NULL WHERE name = %s""", attendance.name)
+			frappe.db.sql("""UPDATE 
+					`tabAttendance` 
+				SET 
+					`shift_type` = NULL 
+				WHERE 
+					name = %s""", attendance.name)
 
 def update_non_working_day_records():
 	attendance_records = get_attendance()
@@ -21,18 +26,68 @@ def update_non_working_day_records():
 		if attendance.status == 'Half Day' or attendance.status == 'Absent' or attendance.status == 'On Leave':
 			update_timestamp_records(attendance)
 			if attendance.shift_type and attendance.attendance_date > datetime.date(2020,3,29):
-				frappe.db.sql("""UPDATE `tabAttendance` SET `shift_type` = NULL WHERE name = %s""", attendance.name)
+				frappe.db.sql("""UPDATE
+						`tabAttendance` 
+					SET 
+						`shift_type` = NULL 
+					WHERE 
+						name = %s""", attendance.name)
 
 def update_timestamp_records(attendance):
-	frappe.db.sql("""UPDATE `tabAttendance` SET `time_in` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `time_out` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `start_time` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `end_time` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `late_in` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `early_out` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `total_working_hours` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `diff_working_hours` = NULL WHERE name = %s""", attendance.name)
-	frappe.db.sql("""UPDATE `tabAttendance` SET `total_time` = NULL WHERE name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`time_in` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`time_out` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`start_time` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`end_time` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`late_in` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`early_out` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`total_working_hours` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`diff_working_hours` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET 
+			`total_time` = NULL 
+		WHERE 
+			name = %s""", attendance.name)
 
 def get_attendance():
 	return frappe.db.get_all('Attendance',

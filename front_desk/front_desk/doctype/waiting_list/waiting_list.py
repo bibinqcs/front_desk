@@ -43,32 +43,39 @@ class WaitingList(Document):
 				si.run_method("calculate_taxes_and_totals")
 				si.save()
 				item.fee = si.name
-	
+
 	def validate_date(self):
 		if self.date_of_birth and getdate(self.date_of_birth) >= getdate(today()):
-			frappe.throw('Date of Birth cannot be greater than today.')
+			frappe.throw(msg='Date of Birth cannot be greater than today.',
+			title='Error')
 		
 		if self.date_of_birth and getdate(today()).year - getdate(self.date_of_birth).year < 2:
-			frappe.throw('Child has to be atleast 2 years old to apply.')
+			frappe.throw(msg='Student has to be atleast 2 years old to apply.',
+			title='Error')
 
 		if self.expiry_date and getdate(self.expiry_date) <= getdate(today()):
-			frappe.throw('Passport is expired.')
+			frappe.throw(msg='Passport is expired.',
+			title='Error')
 
 		if self.eid_expiry_date and self.valid_eid == 'Yes' and getdate(self.eid_expiry_date) <= getdate(today()):
-			frappe.throw('Emirates ID is expired.')
+			frappe.throw(msg='Emirates ID is expired.',
+			title='Error')
 
 		if self.guardian_id_expiry and getdate(self.guardian_id_expiry) <= getdate(today()):
-			frappe.throw('Guardian Emirates ID is expired.')
+			frappe.throw(msg='Guardian Emirates ID is expired.',
+			title='Error')
 		
 		if self.guardian_pp_expiry and getdate(self.guardian_pp_expiry) <= getdate(today()):
-			frappe.throw('Guardian Passport is expired.')
+			frappe.throw(msg='Guardian Passport is expired.',
+			title='Error')
 
 
 @frappe.whitelist()
 def verify_student_details(student_name, date_of_birth):
 	student = frappe.get_doc('Student', student_name)
 	if not getdate(student.date_of_birth) == getdate(date_of_birth):
-		frappe.throw('No Matching Records Found')
+		frappe.throw(msg='No Matching Records Found.',
+		title='Error')
 	else:
 		return student
 

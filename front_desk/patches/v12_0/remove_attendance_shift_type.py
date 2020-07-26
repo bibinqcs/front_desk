@@ -14,7 +14,11 @@ def update_shift_records():
 			update_shift(attendance)
 
 def update_shift(attendance):
-	frappe.db.sql("""UPDATE `tabAttendance` SET `shift` = `shift_type` WHERE name = %s""", attendance.name)
+	frappe.db.sql("""UPDATE 
+			`tabAttendance` 
+		SET
+			`shift` = `shift_type` 
+		WHERE name = %s""", attendance.name)
 
 def get_attendance():
 	return frappe.db.get_all('Attendance',

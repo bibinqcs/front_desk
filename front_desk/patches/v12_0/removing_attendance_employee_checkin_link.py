@@ -11,7 +11,11 @@ def unlink_employee_checkin_attendance_records():
 	checkin_records = get_employee_checkin()
 	for checkin in checkin_records:
 		if checkin.time > datetime.datetime(2020,6,1):
-			frappe.db.sql("""UPDATE `tabEmployee Checkin` SET `attendance` = NULL WHERE name = %s""", checkin.name)
+			frappe.db.sql("""UPDATE 
+					`tabEmployee Checkin` 
+				SET 
+					`attendance` = NULL 
+				WHERE name = %s""", checkin.name) 
 
 def get_employee_checkin():
     return frappe.db.get_all('Employee Checkin',
