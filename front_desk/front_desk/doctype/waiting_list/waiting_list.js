@@ -91,6 +91,30 @@ frappe.ui.form.on ('Waiting List', {
 		}
 	},
 
+	persons_pickup1_mobile: function(frm) {
+		var s8= frm.doc.mother_mob
+		if(s8.replace(/[0-9]/g, "")) {
+			frm.set_value("mother_mob", "");
+			frappe.throw(__("Please use only numbers"));
+		}
+	},
+
+	persons_pickup2_mobile: function(frm) {
+		var s8= frm.doc.mother_mob
+		if(s8.replace(/[0-9]/g, "")) {
+			frm.set_value("mother_mob", "");
+			frappe.throw(__("Please use only numbers"));
+		}
+	},
+
+	persons_pickup3_mobile: function(frm) {
+		var s8= frm.doc.mother_mob
+		if(s8.replace(/[0-9]/g, "")) {
+			frm.set_value("mother_mob", "");
+			frappe.throw(__("Please use only numbers"));
+		}
+	},
+
 	get_student_details: function(frm) {
 		if (frm.doc.student && frm.doc.chk_date_of_birth) {
 			frappe.call({
