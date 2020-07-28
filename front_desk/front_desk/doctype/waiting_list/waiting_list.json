@@ -898,14 +898,14 @@
   },
   {
    "fieldname": "section_break_5",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "existing_student",
    "fieldtype": "Select",
    "label": "Is the child registered at the center?",
-   "options": "\nYes\nNo",
-   "reqd": 1
+   "options": "\nYes\nNo"
   },
   {
    "fieldname": "column_break_7",
@@ -958,7 +958,7 @@
    "label": "Get Student Details"
   }
  ],
- "modified": "2020-07-27 01:32:15.447321",
+ "modified": "2020-07-28 11:08:59.381832",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Waiting List",
