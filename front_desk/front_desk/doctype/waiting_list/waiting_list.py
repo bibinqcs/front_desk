@@ -14,15 +14,13 @@ class WaitingList(Document):
 	def validate(self):
 		self.create_observation_invoice()
 		self.validate_date()
-		
-		self.student_age = getdate(today()).year - getdate(self.date_of_birth).year
-		
-		if self.student_middle_name:
-			self.student_full_name = " ".join(filter(None, [self.student_first_name, self.student_middle_name, self.student_last_name]))
-		else:
-			self.student_full_name = " ".join(filter(None, [self.student_first_name, self.student_last_name]))		
-		
-		self.guardian_full_name = " ".join(filter(None, [self.guardian_first_name, self.guardian_last_name]))
+		if not self.student_age:
+			self.student_age = getdate(today()).year - getdate(self.date_of_birth).year
+		if not self.student_full_name:
+			if self.student_middle_name:
+				self.student_full_name = " ".join(filter(None, [self.student_first_name, self.student_middle_name, self.student_last_name]))
+			else:
+				self.student_full_name = " ".join(filter(None, [self.student_first_name, self.student_last_name]))
 
 	def create_observation_invoice(self):
 		for item in self.observation_list:
@@ -69,6 +67,131 @@ class WaitingList(Document):
 			frappe.throw(msg='Guardian Passport is expired.',
 			title='Error')
 
+@frappe.whitelist()
+def add_guardians(waitinglist):
+	w_doc = frappe.get_doc("Waiting List", waitinglist)
+	if w_doc.guardian_relation == "Father":
+		add_guardian_father(w_doc)
+		add_mother(w_doc)
+	if w_doc.guardian_relation == "Mother":
+		add_guardian_mother(w_doc)
+		add_father(w_doc)
+	if w_doc.guardian_relation == "Others":
+		add_other(w_doc)
+		add_father(w_doc)
+		add_mother(w_doc)
+
+def add_guardian_father(w_doc):
+	guardian = frappe.get_value('Guardian', dict(guardian_name=w_doc.guardian_full_name,mobile_number=w_doc.guardian_mobile_no))
+	if guardian:
+		frappe.errprint("Guardians Exist - Skipping")
+	else:
+		g_father = frappe.get_doc({
+			'doctype': 'Guardian',
+			'guardian_name': w_doc.guardian_full_name,
+			'email_address': w_doc.guardian_email,
+			'mobile_number': w_doc.guardian_mobile_no,
+			'nationality': w_doc.guardian_nationality,
+			'passport': w_doc.guardian_passport_number,
+			'passport_expiry': w_doc.guardian_pp_expiry,
+			'passport_copy': w_doc.guard_pp_att,
+			'emirates_id': w_doc.guardian_id,
+			'emiratesid_expiry': w_doc.guardian_id_expiry,
+			'emirates_id_copy': w_doc.guard_eid_att,
+		}).insert(ignore_permissions = True)
+		w_doc.append('guardians', {
+			'guardian': g_father.name,
+			'guardian_name': w_doc.guardian_full_name,
+			'relation': w_doc.guardian_relation
+		})
+		w_doc.save()
+
+def add_guardian_mother(w_doc):
+	guardian = frappe.get_value('Guardian', dict(guardian_name=w_doc.guardian_full_name,mobile_number=w_doc.guardian_mobile_no))
+	if guardian:
+		frappe.errprint("Guardians Exist - Skipping")
+	else:
+		g_mother = frappe.get_doc({
+			'doctype': 'Guardian',
+			'guardian_name': w_doc.guardian_full_name,
+			'email_address': w_doc.guardian_email,
+			'mobile_number': w_doc.guardian_mobile_no,
+			'nationality': w_doc.guardian_nationality,
+			'passport': w_doc.guardian_passport_number,
+			'passport_expiry': w_doc.guardian_pp_expiry,
+			'passport_copy': w_doc.guard_pp_att,
+			'emirates_id': w_doc.guardian_id,
+			'emiratesid_expiry': w_doc.guardian_id_expiry,
+			'emirates_id_copy': w_doc.guard_eid_att,
+		}).insert(ignore_permissions = True)
+		w_doc.append('guardians', {
+			'guardian': g_mother.name,
+			'guardian_name': w_doc.guardian_full_name,
+			'relation': w_doc.guardian_relation
+		})
+		w_doc.save()
+		
+def add_other(w_doc):
+	guardian = frappe.get_value('Guardian', dict(guardian_name=w_doc.guardian_full_name,mobile_number=w_doc.guardian_mobile_no))
+	if guardian:
+		frappe.errprint("Guardians Exist - Skipping")
+	else:
+		other = frappe.get_doc({
+			'doctype': 'Guardian',
+			'guardian_name': w_doc.guardian_full_name,
+			'email_address': w_doc.guardian_email,
+			'mobile_number': w_doc.guardian_mobile_no,
+			'nationality': w_doc.guardian_nationality,
+			'passport': w_doc.guardian_passport_number,
+			'passport_expiry': w_doc.guardian_pp_expiry,
+			'passport_copy': w_doc.guard_pp_att,
+			'emirates_id': w_doc.guardian_id,
+			'emiratesid_expiry': w_doc.guardian_id_expiry,
+			'emirates_id_copy': w_doc.guard_eid_att,
+		}).insert(ignore_permissions = True)
+		w_doc.append('guardians', {
+			'guardian': other.name,
+			'guardian_name': w_doc.guardian_full_name,
+			'relation': w_doc.guardian_relation
+		})
+		w_doc.save()
+
+def add_father(w_doc):
+	guardian = frappe.get_value('Guardian', dict(guardian_name=w_doc.father_name,mobile_number=w_doc.father_mob))
+	if guardian:
+		frappe.errprint("Guardians Exist - Skipping")
+	else:
+		father = frappe.get_doc({
+			'doctype': 'Guardian',
+			'guardian_name': w_doc.father_name,
+			'mobile_number': w_doc.father_mob,
+			'nationality': w_doc.father_nationality,
+		}).insert(ignore_permissions = True)
+		w_doc.append('guardians', {
+			'guardian': father.name,
+			'guardian_name': w_doc.father_name,
+			'relation': "Father"
+		})
+		w_doc.save()
+		
+
+def add_mother(w_doc):
+	guardian = frappe.get_value('Guardian', dict(guardian_name=w_doc.mother_name,mobile_number=w_doc.mother_mob))
+	if guardian:
+		frappe.errprint("Guardians Exist - Skipping")
+	else:
+		mother = frappe.get_doc({
+			'doctype': 'Guardian',
+			'guardian_name': w_doc.mother_name,
+			'mobile_number': w_doc.mother_mob,
+			'nationality': w_doc.mother_nationality,
+		}).insert(ignore_permissions = True)
+		w_doc.append('guardians', {
+			'guardian': mother.name,
+			'guardian_name': w_doc.mother_name,
+			'relation': "Mother"
+		})
+		w_doc.save()
 
 @frappe.whitelist()
 def verify_student_details(student_name, date_of_birth):
@@ -81,8 +204,13 @@ def verify_student_details(student_name, date_of_birth):
 
 @frappe.whitelist()
 def register_student(source_name, target_doc=None):
-	doclist = get_mapped_doc("Waiting List", source_name,
-		{"Waiting List": {
+
+	def parent_details(source, target):
+		if source.guardian_relation == "Father":
+			target.father_name = source.guardian_first_name
+
+	doclist = get_mapped_doc("Waiting List", source_name, {
+		"Waiting List": {
 			"doctype": "Student",
 			"field_map": {
 				"student_first_name": "first_name",
@@ -106,30 +234,10 @@ def register_student(source_name, target_doc=None):
 				"area": "area",
 				"apt_villa_no": "apt_villa_no",
 				"makani_no": "makani_no",
-				"guardian_first_name": "guardian_first_name",
-				"guardian_relation": "guardian_relation",
-				"guardian_mobile_no": "guardian_mobile_no",
-				"guardian_id": "guardian_id",
-				"guardian_id_expiry": "guardian_id_expiry",
-				"guardian_last_name": "guardian_last_name",
-				"guardian_nationality": "guardian_nationality",
-				"guardian_email": "guardian_email",
-				"guardian_passport_number": "guardian_passport_number",
-				"guardian_pp_expiry": "guardian_pp_expiry",
 				"emergency_contact_name_1": "emergency_contact_name_1",
-				"emergency_contact_relation_1": "emergency_contact_relation_1",
 				"emergency_contact_no_1": "emergency_contact_no_1",
 				"emergency_contact_name_2": "emergency_contact_name_2",
-				"emergency_contact_relation_2": "emergency_contact_relation_2",
 				"emergency_contact_no_2": "emergency_contact_no_2",
-				"father_name": "father_name",
-				"father_prof": "father_profession",
-				"father_mob": "father_mob_number",
-				"father_nationality": "father_nationality",
-				"mother_name": "mother_name",
-				"mother_prof": "mother_profession",
-				"mother_mob": "mother_mob_number",
-				"mother_nationality": "father_nationality",
 				"blood_grp": "blood_grp",
 				#"allergies": "allergies",
 				"allergy_type": "allergy_type",
@@ -137,11 +245,6 @@ def register_student(source_name, target_doc=None):
 				#"seizures": "seizures",
 				"seizure_type": "seizure_type",
 				"seizure_period_type": "seizure_period_type",
-				#"medication":
-				#"medication_type":
-				#"medication_quantity":
-				#"medication_period":
-				#"other_diseases_or_medical_conditions":
 				"other_diseases_type": "other_type",
 				"other_diseases_period": "other_period_treatment",
 				"persons_pickup1": "persons_pickup1",
@@ -151,16 +254,26 @@ def register_student(source_name, target_doc=None):
 				"persons_pickup3": "persons_pickup3",
 				"persons_pickup3_mobile": "persons_pickup3_mobile",
 				#"report_att":
-				#"child_pic_att":
+				"child_pic_att": "image",
 				#"child_birth_att":
-				#"child_pp_att":
-				#"child_eid_att":
-				#"guard_pp_att":
-				#"guard_eid_att":
-				}
-		}})
+				"child_pp_att": "passport_copy",
+				"child_eid_att": "eid_copy",
+			}
+		},
+		"Student Medication": {
+			"doctype": "Student Medication",
+			"field_map": {
+				"parent": "prevdoc_docname",
+			}
+		},
+		"Waitlist Guardian": {
+			"doctype": "Student Guardian",
+			"field_map": {
+				"parent": "prevdoc_docname",
+			}
+		},
+	},target_doc)
 	return doclist
-
 
 @frappe.whitelist()
 def make_appointment(source_name, target_doc=None):

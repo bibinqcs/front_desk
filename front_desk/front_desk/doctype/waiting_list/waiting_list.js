@@ -3,6 +3,13 @@
 
 frappe.ui.form.on ('Waiting List', {
 	refresh: function(frm) {
+		frm.add_custom_button(__("Add Guardians"), function() {
+			return frappe.call("front_desk.front_desk.doctype.waiting_list.waiting_list.add_guardians", {
+				waitinglist: frm.doc.name
+			}).then(r => {
+				refresh_field("guardians");
+			});
+		}, __("Make"));
 		frm.add_custom_button(__("Register Student"), function() {
 			frappe.model.open_mapped_doc({
 				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.register_student",
@@ -72,6 +79,18 @@ frappe.ui.form.on ('Waiting List', {
 		if(s6.replace(/[0-9]/g, "")) {
 			frm.set_value("emergency_contact_no_2", "");
 			frappe.throw(__("Please use only numbers"));
+		}
+	},
+
+	guardian_relation: function(frm) {
+		var relation= frm.doc.guardian_relation
+		if(relation=="Mother") {
+			frm.set_df_property("mother_name", "reqd", 0);
+			frm.set_df_property("mother_nationality", "reqd", 0);
+		}
+		if(relation=="Father") {
+			frm.set_df_property("father_name", "reqd", 0);
+			frm.set_df_property("father_nationality", "reqd", 0);
 		}
 	},
 

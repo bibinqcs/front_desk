@@ -54,39 +54,35 @@
   "apt_villa_no",
   "makani_no",
   "section_break31",
-  "guardian_first_name",
-  "guardian_relation",
-  "guardian_mobile_no",
-  "guardian_id",
-  "guardian_id_expiry",
-  "column_break7",
-  "guardian_last_name",
   "guardian_full_name",
-  "guardian_nationality",
+  "guardian_relation",
   "guardian_email",
+  "guardian_mobile_no",
+  "column_break7",
+  "guardian_nationality",
   "guardian_passport_number",
   "guardian_pp_expiry",
-  "section_break38",
-  "first_contact",
-  "emergency_contact_name_1",
-  "emergency_contact_relation_1",
-  "emergency_contact_no_1",
-  "column_break8",
-  "emergency_contact_name_2",
-  "emergency_contact_relation_2",
-  "emergency_contact_no_2",
+  "guardian_id",
+  "guardian_id_expiry",
   "s1",
   "father_name",
   "father_prof",
   "c2",
-  "father_mob",
   "father_nationality",
+  "father_mob",
   "s2",
   "mother_name",
   "mother_prof",
   "c3",
-  "mother_mob",
   "mother_nationality",
+  "mother_mob",
+  "section_break38",
+  "first_contact",
+  "emergency_contact_name_1",
+  "emergency_contact_no_1",
+  "column_break8",
+  "emergency_contact_name_2",
+  "emergency_contact_no_2",
   "section_break8",
   "blood_grp",
   "section_break11",
@@ -106,10 +102,7 @@
   "other_diseases_period",
   "section_break12",
   "medication",
-  "column_break13",
-  "medication_type",
-  "medication_quantity",
-  "medication_period",
+  "student_medication",
   "section_break13",
   "column_break22",
   "persons_pickup1",
@@ -146,7 +139,9 @@
   "certificate",
   "observation_list",
   "reason",
-  "comments"
+  "comments",
+  "section_break_135",
+  "guardians"
  ],
  "fields": [
   {
@@ -184,6 +179,7 @@
    "options": "Interested\nAssessment Ongoing\nReady for Admission\nWaiting for Fee Payment\nOn Hold\nAdmission Complete\nRejected"
   },
   {
+   "depends_on": "eval:doc.guardian_relation!='Father'",
    "fieldname": "s1",
    "fieldtype": "Section Break",
    "label": "Father Information"
@@ -211,6 +207,7 @@
    "length": 12
   },
   {
+   "depends_on": "eval:doc.guardian_relation!='Mother'",
    "fieldname": "s2",
    "fieldtype": "Section Break",
    "label": "Mother Information"
@@ -308,10 +305,9 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
-   "in_list_view": 1,
+   "hidden": 1,
    "label": "Series",
-   "options": "DAC-WL-.YY.-.MM.-.DD.-.###",
-   "reqd": 1
+   "options": "DAC-WL-.YY.-.MM.-.DD.-.###"
   },
   {
    "fieldname": "student_first_name",
@@ -475,16 +471,10 @@
    "label": "Guardian's Information"
   },
   {
-   "fieldname": "guardian_first_name",
-   "fieldtype": "Data",
-   "label": "First Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "guardian_relation",
    "fieldtype": "Select",
    "label": "Relation",
-   "options": "\nFather\nMother\nOther",
+   "options": "\nFather\nMother\nOthers",
    "reqd": 1
   },
   {
@@ -512,16 +502,10 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "guardian_last_name",
-   "fieldtype": "Data",
-   "label": "Last Name",
-   "reqd": 1
-  },
-  {
    "fieldname": "guardian_full_name",
    "fieldtype": "Data",
-   "label": "Full Name",
-   "read_only": 1
+   "label": "Name",
+   "reqd": 1
   },
   {
    "fieldname": "guardian_nationality",
@@ -561,20 +545,14 @@
   {
    "fieldname": "emergency_contact_name_1",
    "fieldtype": "Data",
-   "label": "Name 1",
-   "reqd": 1
-  },
-  {
-   "fieldname": "emergency_contact_relation_1",
-   "fieldtype": "Data",
-   "label": "Relation 1",
+   "label": "Name",
    "reqd": 1
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "emergency_contact_no_1",
    "fieldtype": "Data",
-   "label": "Mobile 1",
+   "label": "Mobile",
    "length": 12,
    "reqd": 1
   },
@@ -586,18 +564,13 @@
   {
    "fieldname": "emergency_contact_name_2",
    "fieldtype": "Data",
-   "label": "Name 2"
-  },
-  {
-   "fieldname": "emergency_contact_relation_2",
-   "fieldtype": "Data",
-   "label": "Relation 2"
+   "label": "Name"
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "emergency_contact_no_2",
    "fieldtype": "Data",
-   "label": "Mobile 2",
+   "label": "Mobile",
    "length": 12
   },
   {
@@ -716,28 +689,6 @@
    "label": "Medication",
    "options": "\nYes\nNo",
    "reqd": 1
-  },
-  {
-   "fieldname": "column_break13",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "eval:doc.medication == 'Yes'",
-   "fieldname": "medication_type",
-   "fieldtype": "Data",
-   "label": "Medication Type"
-  },
-  {
-   "depends_on": "eval:doc.medication == 'Yes'",
-   "fieldname": "medication_quantity",
-   "fieldtype": "Data",
-   "label": "Medication Quantity"
-  },
-  {
-   "depends_on": "eval:doc.medication == 'Yes'",
-   "fieldname": "medication_period",
-   "fieldtype": "Data",
-   "label": "Medication Period"
   },
   {
    "fieldname": "section_break13",
@@ -956,9 +907,24 @@
    "fieldname": "get_student_details",
    "fieldtype": "Button",
    "label": "Get Student Details"
+  },
+  {
+   "depends_on": "eval:doc.medication == 'Yes'",
+   "fieldname": "student_medication",
+   "fieldtype": "Table",
+   "options": "Student Medication"
+  },
+  {
+   "fieldname": "section_break_135",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "guardians",
+   "fieldtype": "Table",
+   "options": "Waitlist Guardian"
   }
  ],
- "modified": "2020-07-28 11:08:59.381832",
+ "modified": "2020-08-05 22:02:56.999678",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Waiting List",
