@@ -4,10 +4,14 @@
 frappe.ui.form.on ('Waiting List', {
 	refresh: function(frm) {
 		frm.add_custom_button(__("Add Guardians"), function() {
-			return frappe.call("front_desk.front_desk.doctype.waiting_list.waiting_list.add_guardians", {
-				waitinglist: frm.doc.name
-			}).then(r => {
-				refresh_field("guardians");
+			return frappe.call({
+				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.add_guardians",
+				args: {
+					waitinglist: frm.doc.name,
+				},
+				callback: (r) => {
+					frm.refresh();
+				},
 			});
 		}, __("Make"));
 		frm.add_custom_button(__("Register Student"), function() {
