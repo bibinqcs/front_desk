@@ -10,7 +10,7 @@ frappe.ui.form.on ('Waiting List', {
 					waitinglist: frm.doc.name,
 				},
 				callback: (r) => {
-					frm.refresh();
+					frm.refresh_field("guardians")
 				},
 			});
 		}, __("Make"));
