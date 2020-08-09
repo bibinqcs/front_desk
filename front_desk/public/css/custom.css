@@ -2,6 +2,6 @@
     color: red;
 }
 
-.has-error input {
+.has-error input , .has-error select {
     border: 1px solid red;
 }
