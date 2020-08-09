@@ -9,7 +9,7 @@
  "amount": 0.0,
  "amount_based_on_field": 0,
  "button_label": "Submit",
- "client_script": "frappe.web_form.on('date_of_birth', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.get_today(), frappe.datetime.obj_to_str(date));\r\n\tif (diff1 < 730) {\r\n\t    frappe.throw(__(\"Student has to be atleast 2 years old to apply.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('expiry_date', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Student Passport is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('eid_expiry_date', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Student Emirates ID is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_id_expiry', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Guardian Emirates ID is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_pp_expiry', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Guardian Passport is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('student_eid_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('student_pod_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_mobile_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_id', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('emergency_contact_no_1', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('emergency_contact_no_2', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('father_mob', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('mother_mob', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('persons_pickup1_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\nfrappe.web_form.on('persons_pickup2_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\nfrappe.web_form.on('persons_pickup3_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n",
+ "client_script": "frappe.web_form.on('date_of_birth', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.get_today(), frappe.datetime.obj_to_str(date));\r\n\tif (diff1 < 730) {\r\n\t    frappe.throw(__(\"Student has to be atleast 2 years old to apply.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('expiry_date', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Student Passport is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('eid_expiry_date', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Student Emirates ID is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_id_expiry', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Guardian Emirates ID is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_pp_expiry', (field, value) => {\r\n    var date = frappe.datetime.str_to_obj(value);\r\n\tvar diff1 = frappe.datetime.get_day_diff(frappe.datetime.obj_to_str(date), frappe.datetime.get_today());\r\n\tif (diff1 < 0) {\r\n\t    frappe.throw(__(\"Guardian Passport is expired.\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('student_eid_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('student_pod_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_mobile_no', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_id', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('emergency_contact_no_1', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('emergency_contact_no_2', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('father_mob', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('mother_mob', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('persons_pickup1_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('persons_pickup2_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('persons_pickup3_mobile', (field, value) => {\r\n\tif (value.replace(/[0-9]/g, \"\")) {\r\n        field.set_value(\"\");\r\n\t\tfrappe.throw(__(\"Please use only numbers\"));\r\n\t}\r\n});\r\n\r\nfrappe.web_form.on('guardian_relation', (field, value) => {\r\n    if(value==\"Mother\") {\r\n        frappe.web_form.set_df_property('father_nationality', 'reqd', 1);\r\n        frappe.web_form.set_df_property('father_name', 'reqd', 1);\r\n    }\r\n    if(value==\"Father\") {\r\n        frappe.web_form.set_df_property('mother_nationality', 'reqd', 1);\r\n        frappe.web_form.set_df_property('mother_name', 'reqd', 1);\r\n    }\r\n    if(value==\"Others\") {\r\n        frappe.web_form.set_df_property('father_nationality', 'reqd', 1);\r\n        frappe.web_form.set_df_property('father_name', 'reqd', 1);\r\n        frappe.web_form.set_df_property('mother_nationality', 'reqd', 1);\r\n        frappe.web_form.set_df_property('mother_name', 'reqd', 1);\r\n    }\r\n});",
  "creation": "2020-07-22 13:21:17.759901",
  "currency": "AED",
  "doc_type": "Waiting List",
@@ -20,7 +20,7 @@
  "language": "en",
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2020-08-06 13:01:29.284222",
+ "modified": "2020-08-09 14:31:54.973603",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "student-application",
@@ -579,7 +579,7 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "depends_on": "eval:doc.guardian_relation!='Father'",
+   "depends_on": "eval:(doc.guardian_relation=='Mother' || doc.guardian_relation=='Others')",
    "fieldname": "s1",
    "fieldtype": "Section Break",
    "hidden": 0,
@@ -599,7 +599,7 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
-   "reqd": 1,
+   "reqd": 0,
    "show_in_filter": 0
   },
   {
@@ -635,7 +635,7 @@
    "max_value": 0,
    "options": "Country",
    "read_only": 0,
-   "reqd": 1,
+   "reqd": 0,
    "show_in_filter": 0
   },
   {
@@ -653,7 +653,7 @@
   },
   {
    "allow_read_on_all_link_options": 0,
-   "depends_on": "eval:doc.guardian_relation!='Mother'",
+   "depends_on": "eval:(doc.guardian_relation=='Father' || doc.guardian_relation=='Others')",
    "fieldname": "s2",
    "fieldtype": "Section Break",
    "hidden": 0,
@@ -673,7 +673,7 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
-   "reqd": 1,
+   "reqd": 0,
    "show_in_filter": 0
   },
   {
@@ -709,7 +709,7 @@
    "max_value": 0,
    "options": "Country",
    "read_only": 0,
-   "reqd": 1,
+   "reqd": 0,
    "show_in_filter": 0
   },
   {

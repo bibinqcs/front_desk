@@ -48,14 +48,17 @@ frappe.ui.form.on ('Waiting List', {
 				frm.set_value("father_name", f_name);
 				frm.set_value("father_nationality", nationality);
 				frm.set_value("father_mob", m_no);
+				frm.set_df_property("father_name", "reqd", 0);
+				frm.set_df_property("father_nationality", "reqd", 0);
 			break;
 			case "Mother":
 				frm.set_value("mother_name", f_name);
 				frm.set_value("mother_nationality", nationality);
 				frm.set_value("mother_mob", m_no);
+				frm.set_df_property("mother_name", "reqd", 0);
+				frm.set_df_property("mother_nationality", "reqd", 0);
 			break;
 			case "Others":
-
 			break;
 		}
 	},
