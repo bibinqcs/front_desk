@@ -48,17 +48,11 @@ frappe.ui.form.on ('Waiting List', {
 				frm.set_value("father_name", f_name);
 				frm.set_value("father_nationality", nationality);
 				frm.set_value("father_mob", m_no);
-				frm.set_df_property("father_name", "reqd", 0);
-				frm.set_df_property("father_nationality", "reqd", 0);
 			break;
 			case "Mother":
 				frm.set_value("mother_name", f_name);
 				frm.set_value("mother_nationality", nationality);
 				frm.set_value("mother_mob", m_no);
-				frm.set_df_property("mother_name", "reqd", 0);
-				frm.set_df_property("mother_nationality", "reqd", 0);
-			break;
-			case "Others":
 			break;
 		}
 	},
@@ -113,13 +107,19 @@ frappe.ui.form.on ('Waiting List', {
 
 	guardian_relation: function(frm) {
 		var relation= frm.doc.guardian_relation
-		if(relation=="Mother") {
-			frm.set_df_property("mother_name", "reqd", 0);
-			frm.set_df_property("mother_nationality", "reqd", 0);
-		}
 		if(relation=="Father") {
-			frm.set_df_property("father_name", "reqd", 0);
-			frm.set_df_property("father_nationality", "reqd", 0);
+			frm.set_df_property("mother_name", "reqd", 1);
+			frm.set_df_property("mother_nationality", "reqd", 1);
+		}
+		if(relation=="Mother") {
+			frm.set_df_property("father_name", "reqd", 1);
+			frm.set_df_property("father_nationality", "reqd", 1);
+		}
+		if(relation=="Others") {
+			frm.set_df_property("father_name", "reqd", 1);
+			frm.set_df_property("father_nationality", "reqd", 1);
+			frm.set_df_property("mother_name", "reqd", 1);
+			frm.set_df_property("mother_nationality", "reqd", 1);
 		}
 	},
 
