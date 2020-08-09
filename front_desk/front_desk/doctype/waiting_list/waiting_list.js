@@ -38,6 +38,28 @@ frappe.ui.form.on ('Waiting List', {
 		});
 	},
 
+	validate: function(frm) {
+		var relation = frm.doc.guardian_relation
+		var f_name = frm.doc.guardian_full_name
+		var nationality = frm.doc.guardian_nationality
+		var m_no = frm.doc.guardian_mobile_no
+		switch (relation) {
+			case "Father":
+				frm.set_value("father_name", f_name);
+				frm.set_value("father_nationality", nationality);
+				frm.set_value("father_mob", m_no);
+			break;
+			case "Mother":
+				frm.set_value("mother_name", f_name);
+				frm.set_value("mother_nationality", nationality);
+				frm.set_value("mother_mob", m_no);
+			break;
+			case "Others":
+
+			break;
+		}
+	},
+
 	student_eid_no: function(frm) {
 		var s1= frm.doc.student_eid_no
 		if(s1.replace(/[0-9]/g, "")) {

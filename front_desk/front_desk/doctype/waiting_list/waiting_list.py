@@ -253,9 +253,9 @@ def register_student(source_name, target_doc=None):
 				"persons_pickup2_mobile": "persons_pickup2_mobile",
 				"persons_pickup3": "persons_pickup3",
 				"persons_pickup3_mobile": "persons_pickup3_mobile",
-				#"report_att":
+				"report_att": "diagnosis_report_file",
 				"child_pic_att": "image",
-				#"child_birth_att":
+				"child_birth_att": "child_birth_att",
 				"child_pp_att": "passport_copy",
 				"child_eid_att": "eid_copy",
 			}
