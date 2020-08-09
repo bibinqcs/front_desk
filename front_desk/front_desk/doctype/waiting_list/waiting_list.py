@@ -258,6 +258,12 @@ def register_student(source_name, target_doc=None):
 				"child_birth_att": "child_birth_att",
 				"child_pp_att": "passport_copy",
 				"child_eid_att": "eid_copy",
+				"father_name": "father_name",
+				"father_nationality": "father_nationality",
+				"father_mob": "father_mob_number",
+				"mother_name": "mother_name",
+				"mother_nationality": "mother_nationality",
+				"mother_mob": "mother_mob_number",
 			}
 		},
 		"Student Medication": {
