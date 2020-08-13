@@ -34,8 +34,14 @@ def shift_time_details(attendance, method):
 
 def update_time_in_and_time_out(attendance, method):
     if attendance.in_time_qcs and attendance.out_time_qcs:
-        dt_in = datetime.strptime(str(attendance.in_time_qcs), "%Y-%m-%d %H:%M:%S.000")
-        dt_ot = datetime.strptime(str(attendance.out_time_qcs), "%Y-%m-%d %H:%M:%S.000")
+        time_format_wof = "%Y-%m-%d %H:%M:%S"
+        time_format_wf = "%Y-%m-%d %H:%M:%S.%f"
+        try:
+            dt_in = datetime.strptime(str(attendance.in_time_qcs), time_format_wof)
+            dt_ot = datetime.strptime(str(attendance.out_time_qcs), time_format_wof)
+        except ValueError:
+            dt_in = datetime.strptime(str(attendance.in_time_qcs), time_format_wf)
+            dt_ot = datetime.strptime(str(attendance.out_time_qcs), time_format_wf)
         attendance.time_in = dt_in.time().strftime("%H:%M:%S")
         attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
     else:
@@ -49,7 +55,7 @@ def calculate_tardiness(attendance, method):
         else:
             attendance.set('total_working_hours',"")
 
-        if  datetime.strptime(str(attendance.time_in),"%H:%M:%S") > datetime.strptime(str(attendance.start_time),"%H:%M:%S"):
+        if datetime.strptime(str(attendance.time_in),"%H:%M:%S") > datetime.strptime(str(attendance.start_time),"%H:%M:%S"):
             attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
         else:
             attendance.set('late_in',"")
@@ -64,7 +70,6 @@ def calculate_tardiness(attendance, method):
                 attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
             else:
                 attendance.set('diff_working_hours',"")
-        
     else:
         attendance.set('late_in',"")
         attendance.set('early_out',"")
