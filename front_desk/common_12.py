@@ -14,9 +14,9 @@ from frappe.utils.response import json_handler
 from dateutil.relativedelta import relativedelta
 
 
-def remove_custom_field_kanban_column():
-    if frappe.db.exists("Custom Field", "Work Order-kanban_column"):
-        frappe.delete_doc("Custom Field", "Work Order-kanban_column")
+#def remove_custom_field_kanban_column():
+#    if frappe.db.exists("Custom Field", "Work Order-kanban_column"):
+#        frappe.delete_doc("Custom Field", "Work Order-kanban_column")
 
 def custom_attendance(attendance, method):
     shift_time_details(attendance, method)

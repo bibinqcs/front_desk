@@ -1,0 +1,28 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2020-08-20 12:12:22.416765",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Waiting List",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear {{doc.guardian_full_name}}<br>\r\n<br>\r\nThank you for choosing Dubai Autism Center. <br>\r\n<br>\r\nOnce your application has been reviewed, we will contact you for next steps. <br>\r\n<br>\r\nBest regards, <br>\r\n<br>\r\nAdministration <br>\r\nDubai Autism Center <br>\r\n<br>\r\n<hr>\r\n<p class=\"text-center\"><i>Do not reply</i></p>\r\n<hr>",
+ "modified": "2020-08-20 13:45:56.270418",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Application Recieved",
+ "owner": "admin@dubaiautismcenter.ae",
+ "recipients": [
+  {
+   "cc": "",
+   "email_by_document_field": "owner"
+  }
+ ],
+ "sender": "Notifications",
+ "sender_email": "notifications@dubaiautismcenter.ae",
+ "subject": "Application Recieved"
+}

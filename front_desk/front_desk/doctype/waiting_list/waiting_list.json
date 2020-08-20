@@ -100,9 +100,8 @@
   "column_break12",
   "other_diseases_type",
   "other_diseases_period",
-  "section_break12",
   "medication",
-  "student_medication",
+  "medication_details",
   "section_break13",
   "column_break22",
   "persons_pickup1",
@@ -350,8 +349,7 @@
    "fieldname": "child_live_with",
    "fieldtype": "Select",
    "label": "Guardians who live with the child?",
-   "options": "\nBoth parents\nFather\nMother\nOther",
-   "reqd": 1
+   "options": "\nBoth parents\nFather\nMother\nOther"
   },
   {
    "fieldname": "parent_status",
@@ -676,10 +674,6 @@
    "label": "Other Diseases Period"
   },
   {
-   "fieldname": "section_break12",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "medication",
    "fieldtype": "Select",
    "label": "Medication",
@@ -905,12 +899,6 @@
    "label": "Get Student Details"
   },
   {
-   "depends_on": "eval:doc.medication == 'Yes'",
-   "fieldname": "student_medication",
-   "fieldtype": "Table",
-   "options": "Student Medication"
-  },
-  {
    "fieldname": "section_break_135",
    "fieldtype": "Section Break"
   },
@@ -918,10 +906,16 @@
    "fieldname": "guardians",
    "fieldtype": "Table",
    "options": "Waitlist Guardian"
+  },
+  {
+   "depends_on": "eval:doc.medication==\"Yes\"",
+   "fieldname": "medication_details",
+   "fieldtype": "Data",
+   "label": "Medication Details"
   }
  ],
- "modified": "2020-08-09 14:35:39.100742",
- "modified_by": "Administrator",
+ "modified": "2020-08-20 11:44:30.141743",
+ "modified_by": "admin@dubaiautismcenter.ae",
  "module": "Front Desk",
  "name": "Waiting List",
  "owner": "Administrator",

@@ -1,0 +1,28 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2020-08-20 11:39:53.010511",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Waiting List",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear {{doc.guardian_full_name}}<br>\r\n<br>\r\nThank you for choosing Dubai Autism Center. <br>\r\n<br>\r\nOnce your application has been reviewed, we will contact you for next steps. <br>\r\n<br>\r\nBest regards, <br>\r\n<br>\r\nAdministration <br>\r\nDubai Autism Center <br>\r\n<br>\r\n<hr>\r\n<div class=\"text-center\">\r\n<p><i>This is an Automated Message. Do not reply</i></p>\r\n</div>\r\n<hr>",
+ "modified": "2020-08-20 13:45:46.919092",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Student Online Application",
+ "owner": "admin@dubaiautismcenter.ae",
+ "recipients": [
+  {
+   "cc": "shobha@dubaiautismcenter.ae\nalaa@dubaiautismcenter.ae\nyousef@dubaiautismcenter.ae",
+   "email_by_document_field": ""
+  }
+ ],
+ "sender": "Notifications",
+ "sender_email": "notifications@dubaiautismcenter.ae",
+ "subject": "New Online Student Application"
+}
