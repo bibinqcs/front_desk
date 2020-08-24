@@ -238,15 +238,18 @@ def register_student(source_name, target_doc=None):
 				"emergency_contact_no_1": "emergency_contact_no_1",
 				"emergency_contact_name_2": "emergency_contact_name_2",
 				"emergency_contact_no_2": "emergency_contact_no_2",
-				"blood_grp": "blood_grp",
-				#"allergies": "allergies",
+				"blood_grp": "blood_group",
+				"allergies": "allergies",
 				"allergy_type": "allergy_type",
 				"allergy_period_treatment": "allergy_period_treatment",
-				#"seizures": "seizures",
+				"seizures": "seizures",
 				"seizure_type": "seizure_type",
 				"seizure_period_type": "seizure_period_type",
+				"other_diseases_or_medical_conditions": "other_diseases",
 				"other_diseases_type": "other_type",
 				"other_diseases_period": "other_period_treatment",
+				"medication": "medication",
+				"medication_details": "medication_details",
 				"persons_pickup1": "persons_pickup1",
 				"persons_pickup1_mobile": "persons_pickup1_mobile",
 				"persons_pickup2": "persons_pickup2",
@@ -263,13 +266,7 @@ def register_student(source_name, target_doc=None):
 				"father_mob": "father_mob_number",
 				"mother_name": "mother_name",
 				"mother_nationality": "mother_nationality",
-				"mother_mob": "mother_mob_number",
-			}
-		},
-		"Student Medication": {
-			"doctype": "Student Medication",
-			"field_map": {
-				"parent": "prevdoc_docname",
+				"mother_mob": "mother_mob_number"
 			}
 		},
 		"Waitlist Guardian": {

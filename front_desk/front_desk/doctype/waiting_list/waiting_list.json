@@ -1,5 +1,6 @@
 {
  "allow_import": 1,
+ "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2017-08-07 10:30:14.089476",
  "doctype": "DocType",
@@ -914,8 +915,8 @@
    "label": "Medication Details"
   }
  ],
- "modified": "2020-08-20 11:44:30.141743",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "modified": "2020-08-23 14:00:17.419383",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Waiting List",
  "owner": "Administrator",
