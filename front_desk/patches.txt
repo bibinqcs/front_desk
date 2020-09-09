@@ -1,3 +1,4 @@
 front_desk.patches.v12_0.update_attendance_custom_fields
 front_desk.patches.v12_0.removing_attendance_employee_checkin_link
 front_desk.patches.v12_0.remove_attendance_shift_type
+front_desk.patches.v12_0.removing_attendance_employee_checkin_link_v2
