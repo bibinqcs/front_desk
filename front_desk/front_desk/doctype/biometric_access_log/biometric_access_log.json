@@ -58,6 +58,7 @@
    "fetch_if_empty": 1,
    "fieldname": "employee_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Employee Name",
    "read_only": 1
   },
@@ -66,7 +67,7 @@
    "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-09-09 13:14:25.387521",
+ "modified": "2020-09-09 14:32:23.099274",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Biometric Access Log",
