@@ -121,10 +121,9 @@ scheduler_events = {
 #		"front_desk.common.sync_access_log",
 #		"front_desk.common.mark_attendance",
 #	]
- 	"hourly": [
+# 	"hourly": [
 # 		"front_desk.tasks.hourly"
-		"front_desk.common_12.remove_custom_field_kanban_column",
- 	],
+# 	],
 # 	"weekly": [
 # 		"front_desk.tasks.weekly"
 # 	]
