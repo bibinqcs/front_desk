@@ -1,28 +1,33 @@
 {
  "allow_import": 1,
- "autoname": "field:id_index",
+ "autoname": "naming_series:",
  "creation": "2019-04-22 12:24:52.759775",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "id_index",
+  "employee",
+  "employee_name",
+  "column_break_5",
   "only_date",
-  "date",
-  "employee"
+  "date"
  ],
  "fields": [
   {
    "fieldname": "id_index",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "ID Index",
+   "read_only": 1,
    "reqd": 1,
    "unique": 1
   },
   {
    "fieldname": "only_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Only Date",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -30,6 +35,7 @@
    "fieldtype": "Datetime",
    "in_list_view": 1,
    "label": "Date",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -38,10 +44,29 @@
    "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
+   "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fetch_if_empty": 1,
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-02-10 10:39:45.965521",
+ "modified": "2020-09-09 13:14:25.387521",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Biometric Access Log",
@@ -60,52 +85,45 @@
    "write": 1
   },
   {
-   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "HR Manager",
-   "share": 1,
-   "write": 1
+   "share": 1
   },
   {
-   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "HR User",
-   "share": 1,
-   "write": 1
+   "share": 1
   },
   {
-   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "IT Manager",
-   "share": 1,
-   "write": 1
+   "share": 1
   },
   {
-   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "IT User",
-   "share": 1,
-   "write": 1
+   "share": 1
   }
  ],
- "quick_entry": 1,
+ "search_fields": "employee",
  "sort_field": "modified",
- "sort_order": "ASC",
+ "sort_order": "DESC",
+ "title_field": "employee",
  "track_changes": 1
 }
