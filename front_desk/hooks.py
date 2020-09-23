@@ -39,7 +39,7 @@ web_include_css = "/assets/front_desk/css/custom.css"
 
 # website user home page (by Role)
 # role_home_page = {
-#	"Role": "home_page"
+#   "Role": "home_page"
 # }
 
 # Website user home page (by function)
@@ -86,51 +86,40 @@ web_include_css = "/assets/front_desk/css/custom.css"
 # 		"on_trash": "method"
 #	}
 # }
+
 doc_events = {
-	"Course Schedule": {
-		"validate": "front_desk.front_desk.doctype.student_schedule.student_schedule.create_class_semester_schedule"
-	},
-#	"Employee":{
-#		"autoname": "front_desk.common.employee_name"
-#	},
-	"Student Group":{
-		"validate": "front_desk.common_12.manage_staff_student_permission"
-	},
-	"Attendance":{
-		"before_save": "front_desk.common_12.custom_attendance"
-	},
-#	"Salary Slip":{
-#		"validate": "front_desk.common.lwp_d"
-#	},
-#	"Salary Slip":{
-#		"validate": "front_desk.common_12.salary_slip_deduction"
-#	},
-#	"Teacher Schedule":{
-#        	"validate": "front_desk.common.sync_teacher_student"
-#	}
+    "Course Schedule": {
+        "validate": "front_desk.front_desk.doctype.student_schedule.student_schedule.create_class_semester_schedule"
+    },
+    "Student Group": {
+        "validate": "front_desk.common_12.manage_staff_student_permission"
+    },
+    "Attendance": {
+        "before_save": "front_desk.common_12.custom_attendance"
+    }
 }
 
 # Scheduled Tasks
 # ---------------
 
-scheduler_events = {
-# 	"all": [
-# 		"front_desk.tasks.all"
-# 	],
-#	"daily": [
-#		"front_desk.common.sync_access_log",
-#		"front_desk.common.mark_attendance",
-#	]
-# 	"hourly": [
-# 		"front_desk.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"front_desk.tasks.weekly"
-# 	]
-# 	"monthly": [
-# 		"front_desk.tasks.monthly"
-# 	]
-}
+#scheduler_events = {
+#    "all": [
+#        "front_desk.tasks.all"
+#    ],
+#    "daily": [
+#        "front_desk.common.sync_access_log",
+#        "front_desk.common.mark_attendance",
+#    ]
+#    "hourly": [
+#        "front_desk.tasks.hourly"
+#    ],
+#    "weekly": [
+#        "front_desk.tasks.weekly"
+#    ]
+#    "monthly": [
+#        "front_desk.tasks.monthly"
+#    ]
+#}
 
 # Testing
 # -------
