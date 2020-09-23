@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from . import __version__ as app_version
+from . import __version__ as app_version # noqa
 
 app_name = "front_desk"
 app_title = "Front Desk"
@@ -84,7 +84,7 @@ web_include_css = "/assets/front_desk/css/custom.css"
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
-#	}
+#     }
 # }
 
 doc_events = {
@@ -102,7 +102,7 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-#scheduler_events = {
+# scheduler_events = {
 #    "all": [
 #        "front_desk.tasks.all"
 #    ],
@@ -119,7 +119,7 @@ doc_events = {
 #    "monthly": [
 #        "front_desk.tasks.monthly"
 #    ]
-#}
+# }
 
 # Testing
 # -------
