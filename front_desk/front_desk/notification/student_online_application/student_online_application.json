@@ -10,15 +10,15 @@
  "event": "New",
  "idx": 0,
  "is_standard": 1,
- "message": "Dear {{doc.guardian_full_name}}<br>\r\n<br>\r\nThank you for choosing Dubai Autism Center. <br>\r\n<br>\r\nOnce your application has been reviewed, we will contact you for next steps. <br>\r\n<br>\r\nBest regards, <br>\r\n<br>\r\nAdministration <br>\r\nDubai Autism Center <br>\r\n<br>\r\n<hr>\r\n<div class=\"text-center\">\r\n<p><i>This is an Automated Message. Do not reply</i></p>\r\n</div>\r\n<hr>",
- "modified": "2020-08-20 13:45:46.919092",
- "modified_by": "Administrator",
+ "message": "Dear DAC Team,\nthe below student has been registered online \nGourdian Name: {{doc.guardian_full_name}}<br>\nStudent Name: {{doc.student_full_name}}\n<br>\nNext Steps:\n1- Review the information and the document,\n2- Contact the Parents,\n3- Confirm that they have paid the fees,\n4- Register the student\n   - Go to the application in (ERP > Front desk > Waiting list) and click on \"make > add guardian\"\n   - Click on \"make > Register Student\"\n<br>\n<br>\n<br>\n<br>\nAdministrator <br>\n<br>\n<hr>\n<div class=\"text-center\">\n<p><i>This is an Automated Message. Do not reply</i></p>\n</div>\n<hr>",
+ "modified": "2020-09-23 11:19:53.991429",
+ "modified_by": "admin@dubaiautismcenter.ae",
  "module": "Front Desk",
  "name": "Student Online Application",
  "owner": "admin@dubaiautismcenter.ae",
  "recipients": [
   {
-   "cc": "shobha@dubaiautismcenter.ae\nalaa@dubaiautismcenter.ae\nyousef@dubaiautismcenter.ae",
+   "cc": "shobha@dubaiautismcenter.ae\nalaa@dubaiautismcenter.ae\nyousef@dubaiautismcenter.ae\ncarine@dubaiautismcenter.ae",
    "email_by_document_field": ""
   }
  ],

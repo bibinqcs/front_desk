@@ -1,0 +1,170 @@
+{
+ "autoname": "naming_series:",
+ "creation": "2020-09-09 14:06:15.641078",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "posting_date",
+  "column_break_2",
+  "language",
+  "amended_from",
+  "student_details",
+  "student",
+  "student_name",
+  "date_of_birth",
+  "nationality",
+  "emirates_id_no",
+  "column_break_12",
+  "joining_date",
+  "last_date",
+  "section_break_15",
+  "organization",
+  "remarks",
+  "enclosure"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "DAC/EDU/LRF/.YY./.#####\nDAC/EDU/LRF/TEST/.#####",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "label": "Language of the Letter",
+   "options": "English\nArabic",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Parent Letter Request",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "student_details",
+   "fieldtype": "Section Break",
+   "label": "Student Details"
+  },
+  {
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "label": "Student ID",
+   "options": "Student",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "student.title",
+   "fieldname": "student_name",
+   "fieldtype": "Data",
+   "label": "Student Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.date_of_birth",
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.student_nationality",
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.emirates_id_no",
+   "fieldname": "emirates_id_no",
+   "fieldtype": "Data",
+   "label": "UAE ID",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.joining_date",
+   "fieldname": "joining_date",
+   "fieldtype": "Date",
+   "label": "Date of Joining",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_date",
+   "fieldtype": "Date",
+   "label": "Last Date"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "organization",
+   "fieldtype": "Data",
+   "label": "Organization"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks (if required) example: outstanding amount, payment  details, student information.. etc"
+  },
+  {
+   "fieldname": "enclosure",
+   "fieldtype": "Data",
+   "label": "Enclosure"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2020-09-15 09:15:19.416046",
+ "modified_by": "admin@dubaiautismcenter.ae",
+ "module": "Front Desk",
+ "name": "Parent Letter Request",
+ "owner": "admin@dubaiautismcenter.ae",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "student_name",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "student_name",
+ "track_changes": 1,
+ "track_seen": 1
+}
