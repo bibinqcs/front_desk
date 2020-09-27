@@ -1,11 +1,11 @@
 // Copyright (c) 2020, Quark Cyber Systems and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on ('Online Student Registration', {
+frappe.ui.form.on ('Waiting List', {
 	refresh: function(frm) {
 		frm.add_custom_button(__("Add Guardians"), function() {
 			return frappe.call({
-				method: "front_desk.front_desk.doctype.online_student_registration.online_student_registration.add_guardians",
+				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.add_guardians",
 				args: {
 					waitinglist: frm.doc.name,
 				},
@@ -16,13 +16,13 @@ frappe.ui.form.on ('Online Student Registration', {
 		}, __("Make"));
 		frm.add_custom_button(__("Register Student"), function() {
 			frappe.model.open_mapped_doc({
-				method: "front_desk.front_desk.doctype.online_student_registration.online_student_registration.register_student",
+				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.register_student",
 				frm: cur_frm
 			});
 		   }, __("Make"));
 		frm.add_custom_button(__("Appointment"), function() {
 			frappe.model.open_mapped_doc({
-				method: "front_desk.front_desk.doctype.online_student_registration.online_student_registration.make_appointment",
+				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.make_appointment",
 				frm: cur_frm
 			});
 		   }, __("Make"));
@@ -166,7 +166,7 @@ frappe.ui.form.on ('Online Student Registration', {
 	get_student_details: function(frm) {
 		if (frm.doc.student && frm.doc.chk_date_of_birth) {
 			frappe.call({
-				method: "front_desk.front_desk.doctype.online_student_registration.online_student_registration.verify_student_details",
+				method: "front_desk.front_desk.doctype.waiting_list.waiting_list.verify_student_details",
 				args: {
 					student_name: frm.doc.student,
 					date_of_birth: frm.doc.chk_date_of_birth

@@ -10,7 +10,7 @@ from frappe.utils import today, getdate
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account
 
 
-class OnlineStudentRegistration(Document):
+class WaitingList(Document):
     def validate(self):
         self.create_observation_invoice()
         self.validate_date()
@@ -38,7 +38,7 @@ class OnlineStudentRegistration(Document):
             if item.status == "Complete" and item.fee is None:
                 si = frappe.new_doc("Sales Invoice")
                 si.set_posting_time = 1
-                si.customer = "Online Student Registration"
+                si.customer = "Waiting List"
                 si.posting_date = today()
                 si.update_stock = 0
                 si.is_pos = 0
@@ -88,7 +88,7 @@ class OnlineStudentRegistration(Document):
 
 @frappe.whitelist()
 def add_guardians(waitinglist):
-    w_doc = frappe.get_doc("Online Student Registration", waitinglist)
+    w_doc = frappe.get_doc("Waiting List", waitinglist)
     if w_doc.guardian_relation == "Father":
         add_guardian_father(w_doc)
         add_mother(w_doc)
@@ -251,8 +251,8 @@ def register_student(source_name, target_doc=None):
         if source.guardian_relation == "Father":
             target.father_name = source.guardian_first_name
 
-    doclist = get_mapped_doc("Online Student Registration", source_name, {
-        "Online Student Registration": {
+    doclist = get_mapped_doc("Waiting List", source_name, {
+        "Waiting List": {
             "doctype": "Student",
             "field_map": {
                 "student_first_name": "first_name",
@@ -323,8 +323,8 @@ def register_student(source_name, target_doc=None):
 
 @frappe.whitelist()
 def make_appointment(source_name, target_doc=None):
-    doclist = get_mapped_doc("Online Student Registration", source_name, {
-        "Online Student Registration": {
+    doclist = get_mapped_doc("Waiting List", source_name, {
+        "Waiting List": {
             "doctype": "Appointments",
             "field_map": {
                 "name1": "contact_name",
