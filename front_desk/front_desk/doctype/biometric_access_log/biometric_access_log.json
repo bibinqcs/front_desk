@@ -6,37 +6,23 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "record_id",
   "id_index",
+  "date",
+  "datetime",
+  "server_datetime",
+  "device_id",
+  "device_id_name",
+  "column_break_8",
   "employee",
-  "employee_name",
-  "column_break_5",
-  "only_date",
-  "date"
+  "employee_name"
  ],
  "fields": [
   {
    "fieldname": "id_index",
    "fieldtype": "Data",
    "label": "ID Index",
-   "read_only": 1,
-   "reqd": 1,
-   "unique": 1
-  },
-  {
-   "fieldname": "only_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Only Date",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Datetime",
-   "in_list_view": 1,
-   "label": "Date",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "employee",
@@ -44,14 +30,13 @@
    "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "reqd": 1
+   "options": "DAC-HR-BAL-.YY.-.MM.-"
   },
   {
    "fetch_from": "employee.employee_name",
@@ -63,11 +48,49 @@
    "read_only": 1
   },
   {
-   "fieldname": "column_break_5",
+   "fieldname": "record_id",
+   "fieldtype": "Data",
+   "label": "ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "server_datetime",
+   "fieldtype": "Datetime",
+   "label": "Server Date & Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "device_id",
+   "fieldtype": "Data",
+   "label": "Device ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "device_id_name",
+   "fieldtype": "Data",
+   "label": "Device Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_8",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "datetime",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Date & Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "read_only": 1
   }
  ],
- "modified": "2020-09-09 14:32:23.099274",
+ "modified": "2020-09-27 20:40:25.537826",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Biometric Access Log",
@@ -122,9 +145,9 @@
    "share": 1
   }
  ],
- "search_fields": "employee",
+ "search_fields": "employee, employee_name",
  "sort_field": "modified",
  "sort_order": "DESC",
- "title_field": "employee",
+ "title_field": "employee_name",
  "track_changes": 1
 }

@@ -1,0 +1,25 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2020-09-27 21:34:27.915127",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Online Student Registration",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear DAC Team<br>\n<br>\nA new student student has registered online<br>\n<b>Name :</b> {{doc.student_full_name}}<br>\n<b>Parent / Guardian Name :</b> {{doc.guardian_full_name}}<br>\n<br>\n<br>\n<hr>\n<div class=\"text-center\">\n<p><i>This is an Automated Message. Do not reply</i></p>\n</div>\n<hr>",
+ "modified": "2020-09-27 21:34:27.915127",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Alert - New Student Registration",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "cc": "shobha@dubaiautismcenter.ae\nalaa@dubaiautismcenter.ae\nyousef@dubaiautismcenter.ae\ncarine@dubaiautismcenter.ae"
+  }
+ ],
+ "subject": "New Online Student Application"
+}

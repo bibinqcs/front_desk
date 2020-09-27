@@ -121,6 +121,15 @@ doc_events = {
 #    ]
 # }
 
+# Scheduled Tasks
+# ---------------
+
+scheduler_events = {
+    "hourly": [
+        "front_desk.front_desk.doctype.biometric_access_log.biometric_access_log.api_integration"
+    ]
+}
+
 # Testing
 # -------
 
