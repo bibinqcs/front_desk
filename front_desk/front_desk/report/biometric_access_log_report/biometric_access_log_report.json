@@ -1,0 +1,38 @@
+{
+ "add_total_row": 0,
+ "creation": "2020-09-28 21:13:51.085162",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{\"filters\":[],\"fields\":[[\"name\",\"Biometric Access Log\"],[\"employee\",\"Biometric Access Log\"],[\"employee_name\",\"Biometric Access Log\"],[\"date\",\"Biometric Access Log\"],[\"datetime\",\"Biometric Access Log\"],[\"server_datetime\",\"Biometric Access Log\"],[\"device_id\",\"Biometric Access Log\"],[\"device_id_name\",\"Biometric Access Log\"],[\"record_id\",\"Biometric Access Log\"],[\"id_index\",\"Biometric Access Log\"]],\"order_by\":\"`tabBiometric Access Log`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":111,\"employee\":104,\"employee_name\":120,\"date\":87,\"datetime\":172,\"server_datetime\":172,\"device_id\":83,\"device_id_name\":250,\"record_id\":120,\"id_index\":120},\"group_by\":null}",
+ "letter_head": "Invoice A4",
+ "modified": "2020-09-28 21:14:29.958988",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Biometric Access Log Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Biometric Access Log",
+ "report_name": "Biometric Access Log Report",
+ "report_type": "Report Builder",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "IT Manager"
+  },
+  {
+   "role": "IT User"
+  }
+ ]
+}
