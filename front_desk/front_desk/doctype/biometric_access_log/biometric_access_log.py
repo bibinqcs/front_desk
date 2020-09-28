@@ -48,9 +48,6 @@ def api_integration_bulk():
                 {
                     "column": "datetime",
                     "operator": 3,
-                    """
-                    Change the dates below as Needed
-                    """
                     "values": [
                         "2020-09-01T00:00:00.00Z",
                         "2020-09-30T23:59:59.99Z"
