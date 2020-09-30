@@ -261,6 +261,7 @@ def daily_attendance():
 
 @frappe.whitelist()
 def mark_attendance():
+    today = datetime.today()
     employee_details = frappe.get_all('Employee', filters={
                                 'status': 'Active'
                             },
