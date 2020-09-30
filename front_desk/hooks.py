@@ -93,10 +93,10 @@ doc_events = {
     },
     "Student Group": {
         "validate": "front_desk.common_12.manage_staff_student_permission"
-    },
-    "Attendance": {
-        "before_save": "front_desk.common_12.custom_attendance"
     }
+    # "Attendance": {
+    #     "before_save": "front_desk.common_12.custom_attendance"
+    # }
 }
 
 # Scheduled Tasks
@@ -125,8 +125,11 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
+    "daily": [
+        "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.daily_attendance"
+    ],
     "hourly": [
-        "front_desk.front_desk.doctype.biometric_access_log.biometric_access_log.api_integration"
+        "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.api_hourly_sync"
     ]
 }
 

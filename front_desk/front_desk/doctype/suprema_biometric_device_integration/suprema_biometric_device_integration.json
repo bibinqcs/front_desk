@@ -1,0 +1,117 @@
+{
+ "creation": "2020-09-28 22:54:01.708929",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "login_details",
+  "server_url",
+  "column_break_3",
+  "username",
+  "password",
+  "configuration_section",
+  "daily_attendance",
+  "column_break_9",
+  "hourly_sync",
+  "manual_sync_details",
+  "from_date",
+  "manual_sync",
+  "column_break_13",
+  "to_date"
+ ],
+ "fields": [
+  {
+   "collapsible": 1,
+   "fieldname": "login_details",
+   "fieldtype": "Section Break",
+   "label": "Login Details"
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "label": "Username"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "manual_sync_details",
+   "fieldtype": "Section Break",
+   "label": "Manual Biometric Log Sync"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "manual_sync",
+   "fieldtype": "Button",
+   "label": "Manual Sync"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "server_url",
+   "fieldtype": "Data",
+   "label": "Server URL"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "configuration_section",
+   "fieldtype": "Section Break",
+   "label": "Scheduler Configuration"
+  },
+  {
+   "default": "0",
+   "fieldname": "daily_attendance",
+   "fieldtype": "Check",
+   "label": "Enable Daily Attendance"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "hourly_sync",
+   "fieldtype": "Check",
+   "label": "Enable Hourly Biometric Log Sync"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2020-09-30 12:15:15.210103",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Suprema Biometric Device Integration",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
