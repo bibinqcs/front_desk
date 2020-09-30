@@ -14,4 +14,14 @@ def get_data():
                 },
             ]
         },
+                {
+            "label": _("Settings"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Suprema Biometric Device Integration",
+                    "description": _("Suprema Biometric Device Integration"),
+                },
+            ]
+        },
     ]
