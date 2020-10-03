@@ -11,6 +11,7 @@ import dateutil.relativedelta
 from frappe.model.document import Document
 from frappe.utils import today, getdate, get_time
 from datetime import timedelta, datetime
+from erpnext.hr.doctype.holiday_list.holiday_list import is_holiday
 
 
 class SupremaBiometricDeviceIntegration(Document):
@@ -21,13 +22,23 @@ class SupremaBiometricDeviceIntegration(Document):
 def api_hourly_sync():
     hourly_enabled = frappe.db.get_single_value('Suprema Biometric Device Integration', 'hourly_sync')
     if hourly_enabled == 1:
-        json_data = api_payload(today(), today())
-        new_biometric_log(json_data)
+        hourly_id_sync()
+        hourly_fp_sync()
+
+
+def hourly_id_sync():
+    json_data = api_payload(today(), today(), "4102")
+    new_biometric_log(json_data)
+
+
+def hourly_fp_sync():
+    json_data = api_payload(today(), today(), "4865")
+    new_biometric_log(json_data)
 
 
 @frappe.whitelist()
-def api_manual_sync(from_date, to_date):
-    json_data = api_payload(from_date, to_date)
+def api_manual_sync(from_date, to_date, event_code):
+    json_data = api_payload(from_date, to_date, event_code)
     new_biometric_log(json_data)
 
 
@@ -51,7 +62,7 @@ def new_biometric_log(json_data):
                 new_bal.save()
 
 
-def api_payload(from_date, to_date):
+def api_payload(from_date, to_date, event_code):
     session_id = api_session_id()
     server_url = suprema_api_info()[0]
     url = server_url + "/api/events/search"
@@ -65,7 +76,7 @@ def api_payload(from_date, to_date):
                     "column": "event_type_id.code",
                     "operator": 0,
                     "values": [
-                        "4102"
+                        event_code
                         ]
                 },
                 {
@@ -156,164 +167,117 @@ def iso_datetime_trim(json_datetime):
     return formatted_datetime
 
 
-def custom_attendance(attendance, method):
-    shift_time_details(attendance, method)
-    update_time_in_and_time_out(attendance, method)
-    calculate_tardiness(attendance, method)
-
-
-def shift_time_details(attendance, method):
-    if attendance.status == 'Present' and not attendance.start_time and not attendance.end_time:
-        start_time = frappe.get_doc('Shift', attendance.shift).start_time
-        end_time = frappe.get_doc('Shift', attendance.shift).end_time
-        total_time = frappe.get_doc('Shift', attendance.shift).total_time
-        attendance.set('start_time', start_time)
-        attendance.set('end_time', end_time)
-        attendance.set('total_time', total_time)
-
-
-def update_time_in_and_time_out(attendance, method):
-    if attendance.in_time_qcs and attendance.out_time_qcs:
-        time_format_wof = "%Y-%m-%d %H:%M:%S"
-        time_format_wf = "%Y-%m-%d %H:%M:%S.%f"
-        try:
-            dt_in = datetime.strptime(str(attendance.in_time_qcs), time_format_wof)
-            dt_ot = datetime.strptime(str(attendance.out_time_qcs), time_format_wof)
-        except ValueError:
-            dt_in = datetime.strptime(str(attendance.in_time_qcs), time_format_wf)
-            dt_ot = datetime.strptime(str(attendance.out_time_qcs), time_format_wf)
-        attendance.time_in = dt_in.time().strftime("%H:%M:%S")
-        attendance.time_out = dt_ot.time().strftime("%H:%M:%S")
-    else:
-        attendance.set('time_in', "")
-        attendance.set('time_out', "")
-
-
-def calculate_tardiness(attendance, method):
-    if attendance.working_hours:
-        if datetime.strptime(str(attendance.time_out),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-            attendance.total_working_hours = datetime.strptime(str(attendance.time_out),"%H:%M:%S") - datetime.strptime(str(attendance.time_in),"%H:%M:%S")
-        else:
-            attendance.set('total_working_hours',"")
-
-        if datetime.strptime(str(attendance.time_in),"%H:%M:%S") > datetime.strptime(str(attendance.start_time),"%H:%M:%S"):
-            attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
-        else:
-            attendance.set('late_in',"")
-
-        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-            attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
-        else:
-            attendance.set('early_out',"")
-
-        if attendance.total_working_hours:
-            if datetime.strptime(str(attendance.total_time),"%H:%M:%S") > datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S"):
-                attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
-            else:
-                attendance.set('diff_working_hours', "")
-    else:
-        attendance.set('late_in', "")
-        attendance.set('early_out', "")
-        attendance.set('total_working_hours', "")
-        attendance.set('diff_working_hours', "")
-
-
 @frappe.whitelist()
 def daily_attendance():
     daily_enabled = frappe.db.get_single_value('Suprema Biometric Device Integration', 'daily_attendance')
     if daily_enabled == 1:
         employee_details = frappe.get_all('Employee', filters={
-                                    'status': 'Active'
-                                },
-                                fields=['name', 'employee_name', 'date_of_joining']
-                            )
-        for emp in employee_details:
-            fmonth = getdate(today())
-            fmonth = fmonth - timedelta(days=1)
-            if fmonth >= emp.date_of_joining:
-                ip = frappe.get_all('Attendance', filters={
-                            'attendance_date': fmonth,
-                            'employee': emp.name
+                                'status': 'Active'
                             },
-                            fields=['name']
+                            fields=['name', 'employee_name', 'date_of_joining', 'default_shift', 'holiday_list']
                         )
-                if not ip:
-                    att_records = frappe.get_all('Biometric Access Log', filters={
-                                        'employee': emp.name,
-                                        'date': ['=', fmonth]
-                                        },
-                                        fields=['datetime', 'employee'],
-                                        order_by='date'
-                                    )
-                    if att_records:
-                        attendance = frappe.new_doc('Attendance')
-                        attendance.employee = emp.name
-                        attendance.attendance_date = fmonth
-                        attendance.status = "Present"
-                        attendance.company = "Dubai Autism Center"
-                        attendance.time_in = get_time(att_records[0]["datetime"])
-                        attendance.time_out = get_time(att_records[-1]["datetime"])
-                        attendance.total_working_hours = formatted_time(attendance.time_out) - formatted_time(attendance.time_in)
-                        attendance.save()
-                        suprema_calculate_tardiness(attendance)
-                        attendance.submit()
+        for employee in employee_details:
+            attendance_date = getdate(today()) - timedelta(days=1)
+            attendance_record(employee, attendance_date)
 
 
 @frappe.whitelist()
-def mark_attendance():
-    today = datetime.today()
+def mark_attendance(att_from_date, att_to_date):
     employee_details = frappe.get_all('Employee', filters={
-                                'status': 'Active'
-                            },
-                            fields=['name', 'employee_name', 'date_of_joining']
-                        )
-    for emp in employee_details:
-        fmonth = datetime(today.year, today.month, 1)
+                        'status': 'Active'
+                    },
+                    fields=['name', 'employee_name', 'date_of_joining', 'default_shift', 'holiday_list']
+                )
+    for employee in employee_details:
+        attendance_date = getdate(att_from_date)
+        diff = getdate(att_to_date) - getdate(att_from_date)
         g = 1
-        # fmonth = fmonth - dateutil.relativedelta.relativedelta(months=1)
-        frappe.errprint(fmonth)
-        while g <= 31:
-            if fmonth.date() >= emp.date_of_joining:
-                ip = frappe.get_all('Attendance', filters={
-                            'attendance_date': fmonth,
-                            'employee': emp.name
-                            },
-                            fields=['name']
-                        )
-                if not ip:
-                    att_records = frappe.get_all('Biometric Access Log', filters={
-                                        'employee': emp.name,
-                                        'date': ['=', fmonth]
-                                        },
-                                        fields=['datetime', 'employee'],
-                                        order_by='date'
-                                    )
-                    if att_records:
-                        attendance = frappe.new_doc('Attendance')
-                        attendance.employee = emp.name
-                        attendance.attendance_date = fmonth
-                        attendance.status = "Present"
-                        attendance.company = "Dubai Autism Center"
-                        frappe.errprint(att_records)
-                        frappe.errprint(att_records[0])
-                        frappe.errprint(att_records[-1])
-                        frappe.errprint(get_time(att_records[0]["datetime"]))
-                        frappe.errprint(get_time(att_records[-1]["datetime"]))
-                        attendance.time_in = get_time(att_records[0]["datetime"])
-                        attendance.time_out = get_time(att_records[-1]["datetime"])
-                        attendance.total_working_hours = formatted_time(attendance.time_out) - formatted_time(attendance.time_in)
-                        attendance.save()
-                        suprema_calculate_tardiness(attendance)
-                        attendance.submit()
-            fmonth = fmonth + timedelta(days=1)
+        while g <= diff.days:
+            attendance_record(employee, attendance_date)
+            attendance_date = attendance_date + timedelta(days=1)
             g += 1
 
 
-def suprema_calculate_tardiness(attendance):
-    if formatted_time(attendance.time_out) > formatted_time(attendance.time_in):
-        attendance.total_working_hours = formatted_time(attendance.time_out) - formatted_time(attendance.time_in)
+def attendance_record(employee, attendance_date):
+    if attendance_date >= employee.date_of_joining:
+        if not frappe.db.exists({'doctype': 'Attendance', 'employee': employee.name, 'attendance_date': attendance_date}):
+            biometric_records = frappe.get_all('Biometric Access Log', filters={
+                'employee': employee.name,
+                'date': ['=', attendance_date]
+                },
+                fields=['datetime', 'employee'],
+                order_by='date'
+            )
+            if biometric_records:
+                time_in = get_time(biometric_records[0]["datetime"])
+                time_out = get_time(biometric_records[-1]["datetime"])
+                check_total_working_hours(employee, attendance_date, time_in, time_out)
+            else:
+                auto_absent(employee, attendance_date)
+
+
+def auto_absent(employee, attendance_date):
+    auto_absent = frappe.db.get_single_value('Suprema Biometric Device Integration', 'auto_absent')
+    if auto_absent == 1:
+        absent_grace = frappe.db.get_single_value('Suprema Biometric Device Integration', 'absent_grace')
+        holiday_list = employee.holiday_list
+        grace_date = attendance_date - timedelta(days=absent_grace)
+        grace_date_parsed = getdate(grace_date)
+        if getdate(grace_date) > getdate("2020-08-31"):
+            if not frappe.db.exists({'doctype': 'Attendance', 'employee': employee.name, 'attendance_date': grace_date}):
+                if not is_holiday(holiday_list, grace_date_parsed):
+                    frappe.errprint(grace_date)
+                    mark_absent(employee, grace_date)
+
+
+def mark_absent(employee, attendance_date):
+    attendance = frappe.new_doc('Attendance')
+    attendance.employee = employee.name
+    attendance.attendance_date = attendance_date
+    attendance.status = 'Absent'
+    attendance.company = 'Dubai Autism Center'
+    attendance.submit()
+
+
+def check_total_working_hours(employee, attendance_date, time_in, time_out):
+    total_hours = formatted_time(time_out) - formatted_time(time_in)
+    diff_hours = total_hours.total_seconds() / 3600
+    if int(diff_hours) > 1:
+        half_day = frappe.db.get_single_value('Suprema Biometric Device Integration', 'half_day_threshold')
+        if diff_hours > half_day:
+            new_attendance(employee, attendance_date, time_in, time_out, total_hours)
     else:
-        attendance.set('total_working_hours', "")
+        new_attendance_request(employee, attendance_date)
+
+
+def new_attendance_request(employee, attendance_date):
+    auto_attendance_request = frappe.db.get_single_value('Suprema Biometric Device Integration', 'auto_attendance_request')
+    if auto_attendance_request == 1:
+        if not frappe.db.exists({'doctype': 'Attendance Request', 'employee': employee.name, 'from_date': attendance_date}):
+            new_ar = frappe.new_doc('Attendance Request')
+            new_ar.employee = employee.name
+            new_ar.company = 'Dubai Autism Center'
+            new_ar.from_date = attendance_date
+            new_ar.to_date = attendance_date
+            new_ar.reason = 'Missed Punch Data / Exception'
+            new_ar.save()
+
+
+def new_attendance(employee, attendance_date, time_in, time_out, total_hours):
+    attendance = frappe.new_doc('Attendance')
+    attendance.employee = employee.name
+    attendance.attendance_date = attendance_date
+    attendance.status = 'Present'
+    attendance.company = 'Dubai Autism Center'
+    attendance.time_in = time_in
+    attendance.time_out = time_out
+    attendance.total_working_hours = total_hours
+    attendance.save()
+    suprema_calculate_tardiness(attendance)
+    attendance.submit()
+
+
+def suprema_calculate_tardiness(attendance):
     if formatted_time(attendance.time_in) > formatted_time(attendance.start_time):
         attendance.set('late_entry', 1)
         attendance.late_in = formatted_time(attendance.time_in) - formatted_time(attendance.start_time)
@@ -324,18 +288,22 @@ def suprema_calculate_tardiness(attendance):
         attendance.early_out = formatted_time(attendance.end_time) - formatted_time(attendance.time_out)
     else:
         attendance.set('early_out', "")
-    if attendance.total_working_hours:
-        if formatted_time(attendance.total_time) > formatted_time(attendance.total_working_hours):
-            attendance.diff_working_hours = formatted_time(attendance.total_time) - formatted_time(attendance.total_working_hours)
-        else:
-            attendance.set('diff_working_hours', "")
-    if not attendance.total_working_hours:
-        attendance.set('late_in', "")
-        attendance.set('early_out', "")
-        attendance.set('total_working_hours', "")
+    if formatted_time(attendance.total_time) > formatted_time(attendance.total_working_hours):
+        attendance.diff_working_hours = formatted_time(attendance.total_time) - formatted_time(attendance.total_working_hours)
+    else:
         attendance.set('diff_working_hours', "")
 
 
 def formatted_time(time):
     format_time = datetime.strptime(str(time), "%H:%M:%S")
     return format_time
+
+
+def clear_timefields(attendance, method):
+    if not attendance.status == 'Present' or attendance.attendance_request:
+        attendance.set('time_in', "")
+        attendance.set('time_out', "")
+        attendance.set('late_in', "")
+        attendance.set('early_out', "")
+        attendance.set('total_working_hours', "")
+        attendance.set('diff_working_hours', "")

@@ -10,14 +10,25 @@
   "username",
   "password",
   "configuration_section",
-  "daily_attendance",
-  "column_break_9",
+  "biometric_access_log_setting_column",
   "hourly_sync",
+  "attendance_details_column",
+  "daily_attendance",
+  "half_day_threshold",
+  "auto_attendance_request",
+  "auto_absent",
+  "absent_grace",
   "manual_sync_details",
   "from_date",
   "manual_sync",
   "column_break_13",
-  "to_date"
+  "to_date",
+  "event_code",
+  "manual_attendance_details",
+  "att_from_date",
+  "mark_attendance",
+  "column_break_19",
+  "att_to_date"
  ],
  "fields": [
   {
@@ -40,7 +51,7 @@
    "collapsible": 1,
    "fieldname": "manual_sync_details",
    "fieldtype": "Section Break",
-   "label": "Manual Biometric Log Sync"
+   "label": "Manual Biometric Log Sync Tool"
   },
   {
    "fieldname": "from_date",
@@ -67,10 +78,6 @@
    "label": "Server URL"
   },
   {
-   "fieldname": "column_break_9",
-   "fieldtype": "Column Break"
-  },
-  {
    "collapsible": 1,
    "fieldname": "configuration_section",
    "fieldtype": "Section Break",
@@ -91,10 +98,75 @@
    "fieldname": "hourly_sync",
    "fieldtype": "Check",
    "label": "Enable Hourly Biometric Log Sync"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "manual_attendance_details",
+   "fieldtype": "Section Break",
+   "label": "Manual Attendance Tool"
+  },
+  {
+   "fieldname": "att_from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "mark_attendance",
+   "fieldtype": "Button",
+   "label": "Mark Attendance"
+  },
+  {
+   "fieldname": "att_to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "default": "ID Card",
+   "fieldname": "event_code",
+   "fieldtype": "Select",
+   "label": "Authentication Type ",
+   "options": "ID Card\nFingerprint"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "biometric_access_log_setting_column",
+   "fieldtype": "Column Break",
+   "label": "Biometric Access Log Setting"
+  },
+  {
+   "fieldname": "attendance_details_column",
+   "fieldtype": "Column Break",
+   "label": "Attendance Details"
+  },
+  {
+   "fieldname": "half_day_threshold",
+   "fieldtype": "Float",
+   "label": "Working Hours Threshold for Half Day"
+  },
+  {
+   "description": "In Days",
+   "fieldname": "absent_grace",
+   "fieldtype": "Int",
+   "label": "Absent Grace Period"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_absent",
+   "fieldtype": "Check",
+   "label": "Enable Automated Absent Attendance"
+  },
+  {
+   "default": "0",
+   "fieldname": "auto_attendance_request",
+   "fieldtype": "Check",
+   "label": "Enable Missed Punch Exception Form "
   }
  ],
  "issingle": 1,
- "modified": "2020-09-30 12:15:15.210103",
+ "modified": "2020-10-03 14:53:24.300118",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Suprema Biometric Device Integration",
