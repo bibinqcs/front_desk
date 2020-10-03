@@ -3,239 +3,11 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-import frappe, requests, urllib3, json, datetime, dateutil.parser, urllib2, urllib, dateutil.relativedelta
-from frappe.model.document import Document
-from frappe.model.naming import make_autoname
-from frappe.utils import flt, add_days, date_diff, get_request_site_address
-from erpnext.hr.doctype.employee.employee import get_holiday_list_for_employee
-from json import dumps
-from datetime import date, timedelta, datetime
-from frappe.utils.response import json_handler
+import frappe
+import datetime
+from frappe.utils import flt, add_days, date_diff
+from datetime import date
 from dateutil.relativedelta import relativedelta
-
-
-
-
-
-
-# biostar Integration
-@frappe.whitelist()
-def sync_access_log():
-    url = "http://172.26.3.14:8795/v2/login"
-    payload = "{\r\n  \"name\": \"DubaiAutismCenter\",\r\n  \"password\": \"Dub@1@a1\",\r\n  \"user_id\": \"admin\"\r\n}"
-    headers = {
-    'content-type': "application/json",
-    'cache-control': "no-cache",
-    'postman-token': "f11383dc-d6c1-ff3e-81aa-85635ec39eba"
-    }
-
-
-    r = requests.session()
-    r.post('http://172.26.3.14:8795/v2/login', data=payload, headers=headers)
-
-    #cookie_obj = requests.cookies.create_cookie(name='bs-cloud-session-id',value='the cookie works')
-    #r.cookies.set_cookie(cookie_obj)
-    #response = requests.post('http://172.26.3.14:8795/v2/login', data=data, headers=rheader)
-
-
-
-    data2={
-      "limit": 0,
-      "offset": 0
-    }
-    t = r.post('http://172.26.3.14:8795/v2/monitoring/event_log/search', data=data2)
-    url = "http://172.26.3.14:8795/v2/monitoring/event_log/search"
-    #date = str(datetime.datetime.now().isoformat())
-    #date = datetime.datetime.now()
-
-    #payload = "{\r\n  \"datetime\":[date],\r\n  \"event_type_code\":[\"4865\"],\r\n   \"limit\": 0,\r\n  \"offset\": 0\r\n}"
-    #payload.datetime = datetime.datetime.now()
-    dt = date.today()
-    #max = str(dt) +"T23:00:00.00Z"
-    #min = str(dt) +"T01:00:00.00Z"
-    max = "2019-12-30T23:00:00.00Z"
-    min = "2019-12-01T01:00:00.00Z"
-
-
-    info = {
-  "device_query_list": [
-    {
-      "device_id": "546844676",
-      "end_datetime": max,
-      "start_datetime": min
-    },
-    {
-      "device_id": "546844679",
-      "end_datetime": max,
-      "start_datetime": min
-    }
-  ],
-  "event_type_code_list": [
-    "4865"
-  ],
-  "limit": 0,
-  "offset": 0
-}
-    payload = json.dumps(info, default=jsonDefault)
-    headers = {
-    'content-type': "application/json",
-    'cache-control': "no-cache",
-    'postman-token': "0905b128-5973-5b9c-0e12-dd60f3c4c7ca"
-    }
-
-    t = r.post('http://172.26.3.14:8795/v2/monitoring/event_log/search_by_device', data=payload, headers=headers)
-    json_data = json.loads(t.text)
-    frappe.errprint(json_data)
-    for data in json_data["records"]:
-        if not frappe.db.get_value("Access Log", {"id_index": data["index"]}):
-            if frappe.db.get_value("Employee", {"name": data["user"]["user_id"]}):
-                new_r = frappe.new_doc("Access Log")
-                new_r.id_index = data["index"]
-                new_r.date = data["server_datetime"]
-                new_r.employee = data["user"]["user_id"]
-                new_r.only_date = data["server_datetime"]
-                new_r.save()
-        #frappe.errprint(dateutil.parser.parse(data["server_datetime"]))
-
-
-
-
-@frappe.whitelist()
-def sync_access_log_test():
-    url = "http://172.26.3.14:8795/v2/login"
-    payload = "{\r\n  \"name\": \"DubaiAutismCenter\",\r\n  \"password\": \"Dub@1@a1\",\r\n  \"user_id\": \"admin\"\r\n}"
-    headers = {
-    'content-type': "application/json",
-    'cache-control': "no-cache",
-    'postman-token': "f11383dc-d6c1-ff3e-81aa-85635ec39eba"
-    }
-
-
-    r = requests.session()
-    r.post('http://172.26.3.14:8795/v2/login', data=payload, headers=headers)
-
-    #cookie_obj = requests.cookies.create_cookie(name='bs-cloud-session-id',value='the cookie works')
-    #r.cookies.set_cookie(cookie_obj)
-    #response = requests.post('http://172.26.3.14:8795/v2/login', data=data, headers=rheader)
-
-
-
-    data2={
-      "limit": 0,
-      "offset": 0
-    }
-    t = r.post('http://172.26.3.14:8795/v2/monitoring/event_log/search', data=data2)
-    url = "http://172.26.3.14:8795/v2/monitoring/event_log/search"
-    #date = str(datetime.datetime.now().isoformat())
-    #date = datetime.datetime.now()
-
-    ##payload = "{\r\n  \"datetime\":[date],\r\n  \"event_type_code\":[\"4865\"],\r\n   \"limit\": 0,\r\n  \"offset\": 0\r\n}"
-    #payload.datetime = datetime.datetime.now()
-    #for emp in frappe.get_all("Employee", fields={"name", "employee_name"},filters={"status":"Active"}):
-    #    usr = '"{}"'.format(emp.name)
-    #    frappe.errprint(usr)
-
-    dt = date.today()
-    max = str(dt) +"T23:00:00.00Z"
-    min = str(dt) +"T01:00:00.00Z"
-    frappe.errprint(max)
-
-    info = {
-  "device_query_list": [
-    {
-      "device_id": "546844676",
-      "end_datetime": max,
-      "start_datetime": min
-    },
-    {
-      "device_id": "546844679",
-      "end_datetime": max,
-      "start_datetime": min
-    }
-  ],
-  "event_type_code_list": [
-    "4865"
-  ],
-  "limit": 0,
-  "offset": 0
-}
-    payload = json.dumps(info, default=jsonDefault)
-    headers = {
-    'content-type': "application/json",
-    'cache-control': "no-cache",
-    'postman-token': "0905b128-5973-5b9c-0e12-dd60f3c4c7ca"
-    }
-    t = r.post('http://172.26.3.14:8795/v2/monitoring/event_log/search_by_device', data=payload, headers=headers)
-    json_data = json.loads(t.text)
-    frappe.errprint(json_data)
-
-        #frappe.errprint(dateutil.parser.parse(data["server_datetime"]))
-
-
-
-
-
-
-@frappe.whitelist()
-def mark_attendance():
-    today = datetime.today()
-
-    #yt = datetime.combine(yesterday, datetime.min.time())
-    for emp in frappe.get_all("Employee", fields={"name", "employee_name", "date_of_joining"},filters={"status":"Active"}):
-        #fmonth = today
-        fmonth = datetime(today.year, today.month, 1)
-
-        g = 1
-        fmonth = fmonth - dateutil.relativedelta.relativedelta(months=1)
-        while g <= 31:
-            if fmonth.date() >= emp.date_of_joining:
-                ip = frappe.get_all("Attendance", "name", {"attendance_date": fmonth, "employee":emp.name})
-                if not ip:
-                    ac = frappe.get_all("Access Log", fields={"date", "employee"}, filters={"employee":emp.name, "only_date":("=",fmonth)}, order_by='date')
-                    if ac:
-                        attendance = frappe.new_doc("Attendance")
-                        attendance.employee = emp.name
-                        attendance.attendance_date = fmonth
-                        attendance.status = "Present"
-                        attendance.company = "Dubai Autism Center"
-                        frappe.errprint(ac)
-                        frappe.errprint(ac[0])
-                        frappe.errprint(ac[-1])
-                        attendance.time_in = ac[0]["date"].time()
-                        attendance.time_out = ac[-1]["date"].time()
-                        attendance.total_working_hours = datetime.strptime(str(attendance.time_out),"%H:%M:%S") - datetime.strptime(str(attendance.time_in),"%H:%M:%S")
-                        attendance.save()
-                        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-                            attendance.late_in = 0
-                        if datetime.strptime(str(attendance.start_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_in),"%H:%M:%S"):
-                            attendance.late_in = datetime.strptime(str(attendance.time_in),"%H:%M:%S") - datetime.strptime(str(attendance.start_time),"%H:%M:%S")
-                        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") < datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-                            attendance.early_out = 0
-                        if datetime.strptime(str(attendance.end_time),"%H:%M:%S") > datetime.strptime(str(attendance.time_out),"%H:%M:%S"):
-                            attendance.early_out = datetime.strptime(str(attendance.end_time),"%H:%M:%S") - datetime.strptime(str(attendance.time_out),"%H:%M:%S")
-                        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") > datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-                            attendance.diff_working_hours = 0
-                        if datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S") < datetime.strptime(str(attendance.total_time),"%H:%M:%S"):
-                            attendance.diff_working_hours = datetime.strptime(str(attendance.total_time),"%H:%M:%S") - datetime.strptime(str(attendance.total_working_hours),"%H:%M:%S")
-                        attendance.submit()
-
-            fmonth = fmonth + timedelta(days=1)
-            g += 1
-
-
-def datetime_to_iso(date):
-    """
-    Converts a datetime to the ISO8601 format, like: 2014-05-20T06:11:41.733900.
-    Parameters:
-    date -- a `datetime` instance.
-    """
-    date = datetime.combine(date, datetime.min.time())
-    return date.isoformat()
-
-
-def jsonDefault(object):
-    return object.__dict__
-
 
 
 @frappe.whitelist()
@@ -259,7 +31,6 @@ def auto_allocate_leave():
                                 lalloc.submit()
 
 
-
 @frappe.whitelist()
 def auto_allocate_leave_test():
     for emp in frappe.db.get_all("Employee", fields =["name", "date_of_joining", "auto_allocate", "leave_policy", "status"]):
@@ -270,17 +41,13 @@ def auto_allocate_leave_test():
                 frappe.errprint(td.years)
 
 
-
-
-
-
 # fetch employee details
 @frappe.whitelist()
 def get_employee_details(user):
     pass
 
-# create class schedule for semester
 
+# create class schedule for semester
 @frappe.whitelist()
 def create_class_semester_schedule(doc, method):
     if doc.create_for_academic_term:
@@ -290,11 +57,11 @@ def create_class_semester_schedule(doc, method):
         make_class_schedule(date, doc.from_time, doc.to_time, doc.course, doc.student_group, doc.instructor)
         date = add_days(date, 7)
 
+
 @frappe.whitelist()
 def get_employee_gratuity(employee):
     emp = frappe.get_doc("Employee", employee)
     gratuity = 0
-
     if date_diff(emp.relieving_date, emp.joining_date) > 1 and date_diff(emp.relieving_date, emp.joining_date) < 5:
         gratuity = date_diff(emp.relieving_date, emp.joining_date) * 10 * 21
     if date_diff(emp.relieving_date, emp.joining_date) > 5:
@@ -302,7 +69,6 @@ def get_employee_gratuity(employee):
     if date_diff(emp.relieving_date, emp.joining_date) < 1:
         gratuity = 0
     return gratuity
-
 
 
 def make_class_schedule(date, from_time, to_time, course, student_group, instructor):
@@ -314,6 +80,7 @@ def make_class_schedule(date, from_time, to_time, course, student_group, instruc
     course_schedule.from_time = from_time
     course_schedule.to_time = to_time
     course_schedule.save()
+
 
 def add_env_bank(communication_assessment_in_therapy_rooms, method):
     for d in frappe.db.get_all("Environment Assessment Bank", fields = ["comm_assessment"]):
@@ -349,6 +116,7 @@ def add_ablls_bank(ablls_r_assessment, method):
                                     "abllsr_code":a["abllsr_code"],
                                     "abllsr_task":a["abllsr_task"]
                 })
+
 
 def add_vocation_checklist(vocational_checklist, method):
     for a in frappe.db.get_all("Computer Assessment Bank", fields =["domain", "serial", "item"]):
@@ -454,6 +222,7 @@ def add_gml2_cl(gm, method):
                                     "items":a["items"]
                 })
 
+
 def add_adl_cl(gm, method):
     for a in frappe.db.get_all("OT Bank", fields =["domain", "serial_no", "items"]):
         if gm.get("__islocal"):
@@ -492,6 +261,7 @@ def add_adl_cl(gm, method):
                                     "serial_no":a["serial_no"],
                                     "items":a["items"]
                 })
+
 
 def add_iadl_cl(gm, method):
     for a in frappe.db.get_all("OT Bank", fields =["domain", "serial_no", "items"]):
@@ -666,41 +436,13 @@ def add_ot_sw_cl(gm, method):
                                     "items":a["items"]
                 })
 
+
 def get_target(code):
     tdoc = frappe.get_all('ABLLS-R Bank', filters={'code': code})
     data =[]
     for item in tdoc.target_table:
         data.append(item.target)
     return data
-
-#def create_student_customer(doc, method):
-#    if not frappe.db.get_values("Customer", {"name": doc.name}):
-#        cust = frappe.new_doc("Customer")
-#        cust.customer_name = doc.name
-#        cust.customer_type = "Individual"
-#        cust.customer_group = "Student"
-#        cust.territory = "United Arab Emirates"
-#        cust.save()
-#    else:
-#        cust = frappe.get_doc("Customer", doc.name)
-#        cust.customer_name = doc.name
-#        cust.customer_type = "Individual"
-#        cust.customer_group = "Student"
-#        cust.territory = "United Arab Emirates"
-#        cust.student_name = doc.title
-#	 cust.gender =  doc.gender
-#        cust.fathers_name = doc.father_name
-#        cust.fathers_mobile_no = doc.father_mob_number
-#        cust.mothers_name = doc.mother_name
-#        cust.mothers_mobile_no =  doc.mother_mob_number
-#        cust.save()
-
-
-#def employee_name(employee, method):
-#    org = make_autoname('DAC-EM-' + '.###')
-#    first = org[:7]
-#    last = org[7:]
-#    employee.name = first + employee.dept_abbr + '-' + last
 
 
 def manage_staff_student_permission(student_group, method):
