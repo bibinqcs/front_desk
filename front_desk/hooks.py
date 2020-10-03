@@ -94,6 +94,9 @@ doc_events = {
     "Student Group": {
         "validate": "front_desk.common_12.manage_staff_student_permission"
     },
+    "Salary Slip": {
+        "validate": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.salary_slip_deduction"
+    },
     "Attendance": {
         "before_save": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.clear_timefields"
     }

@@ -226,7 +226,6 @@ def auto_absent(employee, attendance_date):
         if getdate(grace_date) > getdate("2020-08-31"):
             if not frappe.db.exists({'doctype': 'Attendance', 'employee': employee.name, 'attendance_date': grace_date}):
                 if not is_holiday(holiday_list, grace_date_parsed):
-                    frappe.errprint(grace_date)
                     mark_absent(employee, grace_date)
 
 
@@ -236,6 +235,16 @@ def mark_absent(employee, attendance_date):
     attendance.attendance_date = attendance_date
     attendance.status = 'Absent'
     attendance.company = 'Dubai Autism Center'
+    attendance.shift = employee.default_shift
+    attendance.set('time_in', "")
+    attendance.set('time_out', "")
+    attendance.set('late_in', "")
+    attendance.set('early_out', "")
+    attendance.set('total_working_hours', "")
+    attendance.set('diff_working_hours', "")
+    attendance.set('start_time', "")
+    attendance.set('end_time', "")
+    attendance.set('total_time', "")
     attendance.submit()
 
 
@@ -307,3 +316,81 @@ def clear_timefields(attendance, method):
         attendance.set('early_out', "")
         attendance.set('total_working_hours', "")
         attendance.set('diff_working_hours', "")
+
+
+def salary_slip_deduction(salary_slip, method):
+    if not salary_slip.deductions:
+        salary_slip.set("deductions", [])
+    if not salary_slip.cancel_tardiness:
+        calculate_tardiness(salary_slip)
+    if not salary_slip.cancel_absent_days == 1:
+        calculate_absent_days(salary_slip)
+
+
+def calculate_tardiness(salary_slip):
+    late_mins = timedelta(0, 0, 0)
+    early_mins = timedelta(0, 0, 0)
+    for d in frappe.get_all("Attendance", filters={"employee":salary_slip.employee, "status":"Present"}, fields=["name", "late_in", "early_out", "time_in", "start_time", "time_out", "end_time", "attendance_date"]):
+        if getdate(salary_slip.start_date) <= d.attendance_date <= getdate(salary_slip.end_date):
+            if d.start_time and d.time_in and d.time_in > d.start_time:
+                late_mins += d.time_in - d.start_time
+            if d.end_time and d.time_out and d.time_out < d.end_time:
+                early_mins += d.end_time - d.time_out
+
+    if late_mins.total_seconds() / 60 > 30 and late_mins.total_seconds() / 60 < 180:
+        ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
+        ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
+        amt = ssadoc.base / 60
+        salary_slip.append("deductions",{
+            "salary_component":"Tardiness Deduction - Late In",
+            "amount": amt
+        })
+    elif late_mins.total_seconds() / 60 > 180:
+        ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
+        ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
+        amt = ssadoc.base / 30
+        salary_slip.append("deductions",{
+            "salary_component":"Tardiness Deduction - Late In",
+            "amount": amt
+        })
+
+    if early_mins.total_seconds() / 60 > 30 and early_mins.total_seconds() / 60 < 180:
+        ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
+        ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
+        amt = ssadoc.base / 60
+        salary_slip.append("deductions",{
+            "salary_component":"Tardiness Deduction - Early Out",
+            "amount": amt
+        })
+    elif early_mins.total_seconds() / 60 > 180:
+        ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
+        ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
+        amt = ssadoc.base / 30
+        salary_slip.append("deductions",{
+            "salary_component":"Tardiness Deduction - Early Out",
+            "amount": amt
+        })
+    salary_slip.calculate_net_pay()
+#   frappe.errprint(amt)
+
+
+def calculate_absent_days(salary_slip):
+    absent_days = frappe.db.count('Attendance', {
+                        "employee": salary_slip.employee,
+                        "status": 'Absent'
+                    })
+    frappe.errprint(absent_days)
+    ssa = frappe.db.get_value("Salary Structure Assignment", filters={
+                "salary_structure": "Default",
+                "employee": salary_slip.employee
+            })
+    ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
+    base_salary = ssadoc.base
+    frappe.errprint(base_salary)
+    amt = (base_salary / 30) * absent_days
+    salary_slip.append("deductions", {
+        "salary_component": "Absent Days",
+        "amount": amt
+    })
+    salary_slip.calculate_net_pay()
+    frappe.errprint(amt)

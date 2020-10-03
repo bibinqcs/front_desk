@@ -85,7 +85,6 @@ def salary_slip_deduction(salary_slip, method):
                 if d.end_time and d.time_out and d.time_out < d.end_time:
                      early_mins += d.end_time - d.time_out
 
-
         if late_mins.total_seconds() / 60 > 30 and late_mins.total_seconds() / 60 < 180:
             ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
             ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
@@ -93,7 +92,6 @@ def salary_slip_deduction(salary_slip, method):
             salary_slip.append("deductions",{
                 "salary_component":"Tardiness Deduction - Late In",
                 "amount": amt
-
             })
         elif late_mins.total_seconds() / 60 > 180:
             ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
@@ -102,8 +100,8 @@ def salary_slip_deduction(salary_slip, method):
             salary_slip.append("deductions",{
                 "salary_component":"Tardiness Deduction - Late In",
                 "amount": amt
-
             })
+
         if early_mins.total_seconds() / 60 > 30 and early_mins.total_seconds() / 60 < 180:
             ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
             ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
@@ -111,7 +109,6 @@ def salary_slip_deduction(salary_slip, method):
             salary_slip.append("deductions",{
                 "salary_component":"Tardiness Deduction - Early Out",
                 "amount": amt
-
             })
         elif early_mins.total_seconds() / 60 > 180:
             ssa = frappe.db.get_value("Salary Structure Assignment", filters={"salary_structure":"Default", "employee":salary_slip.employee})
@@ -120,8 +117,8 @@ def salary_slip_deduction(salary_slip, method):
             salary_slip.append("deductions",{
                 "salary_component":"Tardiness Deduction - Early Out",
                 "amount": amt
-
             })
+
         salary_slip.calculate_net_pay()
 #        frappe.errprint(amt)
 
