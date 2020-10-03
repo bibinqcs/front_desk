@@ -323,7 +323,7 @@ def salary_slip_deduction(salary_slip, method):
         salary_slip.set("deductions", [])
     if not salary_slip.cancel_tardiness:
         calculate_tardiness(salary_slip)
-    if not salary_slip.cancel_absent_days == 1:
+    if not salary_slip.cancel_absent_days:
         calculate_absent_days(salary_slip)
 
 
@@ -342,37 +342,21 @@ def calculate_tardiness(salary_slip):
                 late_mins += d.time_in - d.start_time
             if d.end_time and d.time_out and d.time_out < d.end_time:
                 early_mins += d.end_time - d.time_out
-
-    if late_mins.total_seconds() / 60 > 30 and late_mins.total_seconds() / 60 < 180:
-        base = base_salary(salary_slip)
-        amt = base / 60
-        salary_slip.append("deductions", {
-            "salary_component": "Tardiness Deduction - Late In",
-            "amount": amt
-        })
-    elif late_mins.total_seconds() / 60 > 180:
-        base = base_salary(salary_slip)
-        amt = base / 30
-        salary_slip.append("deductions", {
-            "salary_component": "Tardiness Deduction - Late In",
-            "amount": amt
-        })
-
-    if early_mins.total_seconds() / 60 > 30 and early_mins.total_seconds() / 60 < 180:
-        base = base_salary(salary_slip)
-        amt = base / 60
-        salary_slip.append("deductions", {
-            "salary_component": "Tardiness Deduction - Early Out",
-            "amount": amt
-        })
-    elif early_mins.total_seconds() / 60 > 180:
-        base = base_salary(salary_slip)
-        amt = base / 30
-        salary_slip.append("deductions", {
-            "salary_component": "Tardiness Deduction - Early Out",
-            "amount": amt
-        })
+    check_tardiness(salary_slip, late_mins, "Tardiness Deduction - Late In")
+    check_tardiness(salary_slip, early_mins, "Tardiness Deduction - Early Out")
     salary_slip.calculate_net_pay()
+
+
+def check_tardiness(salary_slip, tardiness, salary_component):
+    tardiness_mins = tardiness.total_seconds() / 60
+    if tardiness_mins > 30 and tardiness_mins < 180:
+        base = base_salary(salary_slip)
+        amt = half_day_deduction(base)
+        add_deduction(salary_slip, amt, salary_component)
+    elif tardiness_mins > 180:
+        base = base_salary(salary_slip)
+        amt = full_day_deduction(base)
+        add_deduction(salary_slip, amt, salary_component)
 
 
 def calculate_absent_days(salary_slip):
@@ -381,12 +365,28 @@ def calculate_absent_days(salary_slip):
                         "status": 'Absent'
                     })
     base = base_salary(salary_slip)
-    amt = (base / 30) * absent_days
+    full_day = full_day_deduction(base)
+    amt = full_day * absent_days
+    if amt > 0:
+        add_deduction(salary_slip, amt, "Absent Days")
+    salary_slip.calculate_net_pay()
+
+
+def add_deduction(salary_slip, amt, salary_component="None"):
     salary_slip.append("deductions", {
-        "salary_component": "Absent Days",
+        "salary_component": salary_component,
         "amount": amt
     })
-    salary_slip.calculate_net_pay()
+
+
+def half_day_deduction(base):
+    amt = base / 60
+    return amt
+
+
+def full_day_deduction(base):
+    amt = base / 30
+    return amt
 
 
 def base_salary(salary_slip):
