@@ -360,14 +360,15 @@ def check_tardiness(salary_slip, tardiness, salary_component):
 
 
 def calculate_absent_days(salary_slip):
-    from_date = salary_slip.start_date
-    to_date = salary_slip.end_date
+    from_date = getdate(salary_slip.start_date)
+    to_date = getdate(salary_slip.end_date)
     absent_days = frappe.db.count('Attendance', {
                         'employee': salary_slip.employee,
                         'docstatus': 1,
                         'status': 'Absent',
                         'attendance_date': ['Between', from_date, 'and', to_date]
                     })
+    frappe.errprint(absent_days)
     base = base_salary(salary_slip)
     full_day = full_day_deduction(base)
     amt = full_day * absent_days
