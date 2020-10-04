@@ -116,6 +116,7 @@
    "label": "Mark Attendance"
   },
   {
+   "description": "till this date",
    "fieldname": "att_to_date",
    "fieldtype": "Date",
    "label": "To Date"
@@ -166,7 +167,7 @@
   }
  ],
  "issingle": 1,
- "modified": "2020-10-03 14:53:24.300118",
+ "modified": "2020-10-04 14:02:58.909805",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Suprema Biometric Device Integration",
