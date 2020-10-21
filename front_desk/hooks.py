@@ -98,7 +98,7 @@ doc_events = {
         "validate": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.salary_slip_deduction"
     },
     "Attendance": {
-        "before_save": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.clear_timefields"
+        "before_save": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.attendance_custom_validate"
     }
 }
 
