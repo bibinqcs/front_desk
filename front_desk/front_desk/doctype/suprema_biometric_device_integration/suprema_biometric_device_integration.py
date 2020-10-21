@@ -211,7 +211,8 @@ def attendance_record(employee, attendance_date):
             if biometric_records:
                 time_in = get_time(biometric_records[0]["datetime"])
                 time_out = get_time(biometric_records[-1]["datetime"])
-                check_total_working_hours(employee, attendance_date, time_in, time_out)
+                total_hours = formatted_time(time_out) - formatted_time(time_in)
+                new_attendance(employee, attendance_date, time_in, time_out, total_hours)
             else:
                 auto_absent(employee, attendance_date)
 
@@ -248,30 +249,6 @@ def mark_absent(employee, attendance_date):
     attendance.submit()
 
 
-def check_total_working_hours(employee, attendance_date, time_in, time_out):
-    total_hours = formatted_time(time_out) - formatted_time(time_in)
-    diff_hours = total_hours.total_seconds() / 3600
-    if int(diff_hours) > 1:
-        half_day = frappe.db.get_single_value('Suprema Biometric Device Integration', 'half_day_threshold')
-        if diff_hours > half_day:
-            new_attendance(employee, attendance_date, time_in, time_out, total_hours)
-    else:
-        new_attendance_request(employee, attendance_date)
-
-
-def new_attendance_request(employee, attendance_date):
-    auto_attendance_request = frappe.db.get_single_value('Suprema Biometric Device Integration', 'auto_attendance_request')
-    if auto_attendance_request == 1:
-        if not frappe.db.exists({'doctype': 'Attendance Request', 'employee': employee.name, 'from_date': attendance_date}):
-            new_ar = frappe.new_doc('Attendance Request')
-            new_ar.employee = employee.name
-            new_ar.company = 'Dubai Autism Center'
-            new_ar.from_date = attendance_date
-            new_ar.to_date = attendance_date
-            new_ar.reason = 'Missed Punch Data / Exception'
-            new_ar.save()
-
-
 def new_attendance(employee, attendance_date, time_in, time_out, total_hours):
     attendance = frappe.new_doc('Attendance')
     attendance.employee = employee.name
@@ -280,10 +257,23 @@ def new_attendance(employee, attendance_date, time_in, time_out, total_hours):
     attendance.company = 'Dubai Autism Center'
     attendance.time_in = time_in
     attendance.time_out = time_out
-    attendance.total_working_hours = total_hours
-    attendance.save()
-    suprema_calculate_tardiness(attendance)
-    attendance.submit()
+    diff_hours = total_hours.total_seconds() / 3600
+    if int(diff_hours) == 0:
+        attendance.set('missed_punch_data', 1)
+        auto_attendance_request = frappe.db.get_single_value('Suprema Biometric Device Integration', 'auto_attendance_request')
+        if auto_attendance_request == 1:
+            new_attendance_request(employee, attendance_date)
+        else:
+            attendance.set('late_in', "")
+            attendance.set('early_out', "")
+            attendance.set('total_working_hours', "")
+            attendance.set('diff_working_hours', "")
+            attendance.submit()
+    else:
+        attendance.total_working_hours = total_hours
+        attendance.save()
+        suprema_calculate_tardiness(attendance)
+        attendance.submit()
 
 
 def suprema_calculate_tardiness(attendance):
@@ -306,6 +296,17 @@ def suprema_calculate_tardiness(attendance):
 def formatted_time(time):
     format_time = datetime.strptime(str(time), "%H:%M:%S")
     return format_time
+
+
+def new_attendance_request(employee, attendance_date):
+    if not frappe.db.exists({'doctype': 'Attendance Request', 'employee': employee.name, 'from_date': attendance_date}):
+        new_ar = frappe.new_doc('Attendance Request')
+        new_ar.employee = employee.name
+        new_ar.company = 'Dubai Autism Center'
+        new_ar.from_date = attendance_date
+        new_ar.to_date = attendance_date
+        new_ar.reason = 'Missed Punch Data / Exception'
+        new_ar.save()
 
 
 def clear_timefields(attendance, method):

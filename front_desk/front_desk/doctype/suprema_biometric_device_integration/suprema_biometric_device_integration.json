@@ -14,7 +14,6 @@
   "hourly_sync",
   "attendance_details_column",
   "daily_attendance",
-  "half_day_threshold",
   "auto_attendance_request",
   "auto_absent",
   "absent_grace",
@@ -143,11 +142,7 @@
    "label": "Attendance Details"
   },
   {
-   "fieldname": "half_day_threshold",
-   "fieldtype": "Float",
-   "label": "Working Hours Threshold for Half Day"
-  },
-  {
+   "depends_on": "eval:doc.auto_absent=='1'",
    "description": "In Days",
    "fieldname": "absent_grace",
    "fieldtype": "Int",
@@ -155,19 +150,21 @@
   },
   {
    "default": "0",
+   "depends_on": "eval:doc.daily_attendance=='1'",
    "fieldname": "auto_absent",
    "fieldtype": "Check",
    "label": "Enable Automated Absent Attendance"
   },
   {
    "default": "0",
+   "depends_on": "eval:doc.daily_attendance=='1'",
    "fieldname": "auto_attendance_request",
    "fieldtype": "Check",
    "label": "Enable Missed Punch Exception Form "
   }
  ],
  "issingle": 1,
- "modified": "2020-10-04 14:02:58.909805",
+ "modified": "2020-10-21 22:14:22.034473",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Suprema Biometric Device Integration",

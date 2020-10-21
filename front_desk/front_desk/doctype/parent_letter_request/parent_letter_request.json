@@ -14,13 +14,14 @@
   "student_details",
   "student",
   "student_name",
-  "date_of_birth",
   "nationality",
   "emirates_id_no",
   "column_break_12",
+  "date_of_birth",
   "joining_date",
   "last_date",
   "section_break_15",
+  "type",
   "organization",
   "remarks",
   "enclosure"
@@ -136,10 +137,17 @@
    "fieldname": "enclosure",
    "fieldtype": "Data",
    "label": "Enclosure"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "\nFees and Funding (To Whom It May Concern)\nEnrollment Certificate\nClearance Certificate\nOther",
+   "reqd": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-09-15 09:15:19.416046",
+ "modified": "2020-10-19 08:33:28.462401",
  "modified_by": "admin@dubaiautismcenter.ae",
  "module": "Front Desk",
  "name": "Parent Letter Request",
