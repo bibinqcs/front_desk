@@ -347,6 +347,8 @@ def manual_tardiness(attendance, method):
 
 
 def salary_slip_deduction(salary_slip, method):
+    base = base_salary(salary_slip)
+    salary_slip.set('gross_pay_qcs', base)
     if not salary_slip.deductions:
         salary_slip.set("deductions", [])
     if not salary_slip.cancel_tardiness:
@@ -430,7 +432,7 @@ def full_day_deduction(base):
 
 def base_salary(salary_slip):
     ssa = frappe.db.get_value("Salary Structure Assignment", filters={
-                "salary_structure": "Default",
+                "docstatus": 1,
                 "employee": salary_slip.employee
             })
     ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
