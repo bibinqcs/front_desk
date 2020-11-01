@@ -206,7 +206,7 @@ def attendance_record(employee, attendance_date):
                 'date': ['=', attendance_date]
                 },
                 fields=['datetime', 'employee'],
-                order_by='date'
+                order_by='datetime'
             )
             if biometric_records:
                 time_in = get_time(biometric_records[0]["datetime"])
@@ -351,10 +351,13 @@ def salary_slip_deduction(salary_slip, method):
     salary_slip.set('gross_pay_qcs', base)
     if not salary_slip.deductions:
         salary_slip.set("deductions", [])
+        frappe.errprint("if not salary_slip.deductions")
     if not salary_slip.cancel_tardiness:
         calculate_tardiness(salary_slip)
+        frappe.errprint("if not salary_slip.cancel_tardiness")
     if not salary_slip.cancel_absent_days:
         calculate_absent_days(salary_slip)
+        frappe.errprint("if not salary_slip.cancel_absent_days")
 
 
 def calculate_tardiness(salary_slip):

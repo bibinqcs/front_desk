@@ -6,6 +6,12 @@ from __future__ import unicode_literals
 import frappe
 
 
+@frappe.whitelist()
+def custom_submit(doctype, name):
+    doc = frappe.get_doc(doctype, name)
+    doc.submit()
+
+
 def manage_staff_student_permission(student_group, method):
     sg = frappe.get_doc("Student Group", student_group.name)
 

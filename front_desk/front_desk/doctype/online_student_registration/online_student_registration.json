@@ -141,8 +141,7 @@
   "reason",
   "comments",
   "section_break_135",
-  "guardians",
-  "data_136"
+  "guardians"
  ],
  "fields": [
   {
@@ -914,14 +913,10 @@
    "fieldname": "medication_details",
    "fieldtype": "Data",
    "label": "Medication Details"
-  },
-  {
-   "fieldname": "data_136",
-   "fieldtype": "Data"
   }
  ],
- "modified": "2020-10-14 14:03:08.848460",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "modified": "2020-10-28 13:30:03.407483",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Online Student Registration",
  "owner": "Administrator",
