@@ -92,7 +92,7 @@ doc_events = {
         "validate": "front_desk.front_desk.doctype.student_schedule.student_schedule.create_class_semester_schedule"
     },
     "Student Group": {
-        "validate": "front_desk.common_12.manage_staff_student_permission"
+        "validate": "front_desk.utils.manage_staff_student_permission"
     },
     "Salary Slip": {
         "validate": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.salary_slip_deduction"
