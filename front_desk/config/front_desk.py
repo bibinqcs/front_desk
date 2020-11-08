@@ -47,4 +47,15 @@ def get_data():
                 },
             ]
         },
+        {
+            "label": _("Documents"),
+            "icon": "fa fa-star",
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Parent Letter Request",
+                    "description": _("Parent Letter Request."),
+                },
+            ]
+        },
     ]
