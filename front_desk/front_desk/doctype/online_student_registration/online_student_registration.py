@@ -260,6 +260,8 @@ def register_student(source_name, target_doc=None):
                 "student_last_name": "last_name",
                 "date_of_birth": "date_of_birth",
                 "gender": "gender",
+                "child_live_with": "child_live_with",
+                "parent_status": "parent_status",
                 "religion": "religion",
                 "sibling_number": "sibling_number",
                 "language": "language",
