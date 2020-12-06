@@ -376,9 +376,9 @@ def calculate_tardiness(salary_slip):
             if d.end_time and d.time_out and d.time_out < d.end_time:
                 early_mins += d.end_time - d.time_out
     check_tardiness(salary_slip, late_mins, "Tardiness Deduction - Late In")
-    salary_slip.set('late_mins', late_mins)
+    total_tardiness(salary_slip, late_mins, 'late_mins')
     check_tardiness(salary_slip, early_mins, "Tardiness Deduction - Early Out")
-    salary_slip.set('early_mins', early_mins)
+    total_tardiness(salary_slip, early_mins, 'early_mins')
     salary_slip.calculate_net_pay()
 
 
@@ -392,6 +392,14 @@ def check_tardiness(salary_slip, tardiness, salary_component):
         base = base_salary(salary_slip)
         amt = full_day_deduction(base)
         add_deduction(salary_slip, amt, salary_component)
+
+
+def total_tardiness(salary_slip, tardiness_time, ss_field='None'):
+    total_tardiness_min = tardiness_time.total_seconds() / 60
+    if total_tardiness_min < 1439:
+        salary_slip.set(ss_field, tardiness_time)
+    elif total_tardiness_min > 1439:
+        salary_slip.set(ss_field, timedelta(hours=23, minutes=59, seconds=59))
 
 
 def calculate_absent_days(salary_slip):

@@ -20,7 +20,7 @@
  "language": "en",
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2020-10-14 11:52:32.392752",
+ "modified": "2020-11-22 14:06:28.558819",
  "modified_by": "admin@dubaiautismcenter.ae",
  "module": "Front Desk",
  "name": "student-application",
@@ -380,7 +380,7 @@
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {
@@ -1331,11 +1331,11 @@
    "fieldname": "child_eid_att",
    "fieldtype": "Attach",
    "hidden": 0,
-   "label": "Child's Emirates ID",
+   "label": "Child's Emirates ID (or alternative ID for non-residents) in both sides",
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {
@@ -1355,11 +1355,11 @@
    "fieldname": "guard_eid_att",
    "fieldtype": "Attach",
    "hidden": 0,
-   "label": "Guardian's Emirates ID",
+   "label": "Guardian's Emirates ID (or alternative ID for non-residents) in both sides",
    "max_length": 0,
    "max_value": 0,
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   }
  ]

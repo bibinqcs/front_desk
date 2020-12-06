@@ -478,7 +478,7 @@
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "guardian_mobile_no",
    "fieldtype": "Data",
-   "label": "Mobile Number",
+   "label": "Guardian's Mobile Number",
    "length": 12,
    "reqd": 1
   },
@@ -501,7 +501,7 @@
   {
    "fieldname": "guardian_full_name",
    "fieldtype": "Data",
-   "label": "Name",
+   "label": "Guardian's Name",
    "reqd": 1
   },
   {
@@ -514,19 +514,19 @@
   {
    "fieldname": "guardian_email",
    "fieldtype": "Data",
-   "label": "Email Address",
+   "label": "Guardian's Email Address",
    "options": "Email",
    "reqd": 1
   },
   {
    "fieldname": "guardian_id_expiry",
    "fieldtype": "Date",
-   "label": "Expiry Date"
+   "label": "Expiry Date of the Guardian's EID"
   },
   {
    "fieldname": "guardian_pp_expiry",
    "fieldtype": "Date",
-   "label": "Expiry Date",
+   "label": "Expiry Date of the Guardian's Passport",
    "reqd": 1
   },
   {
@@ -542,14 +542,14 @@
   {
    "fieldname": "emergency_contact_name_1",
    "fieldtype": "Data",
-   "label": "Name",
+   "label": "Name of the First Contact",
    "reqd": 1
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "emergency_contact_no_1",
    "fieldtype": "Data",
-   "label": "Mobile",
+   "label": "Mobile of the First Contact",
    "length": 12,
    "reqd": 1
   },
@@ -561,13 +561,13 @@
   {
    "fieldname": "emergency_contact_name_2",
    "fieldtype": "Data",
-   "label": "Name"
+   "label": "Name of Second Contact"
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "emergency_contact_no_2",
    "fieldtype": "Data",
-   "label": "Mobile",
+   "label": "Mobile of Second Contact",
    "length": 12
   },
   {
@@ -694,14 +694,14 @@
   {
    "fieldname": "persons_pickup1",
    "fieldtype": "Data",
-   "label": "Name",
+   "label": "Name of Perosn 1",
    "reqd": 1
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "persons_pickup1_mobile",
    "fieldtype": "Data",
-   "label": "Mobile",
+   "label": "Mobile of Person 1",
    "length": 12,
    "reqd": 1
   },
@@ -713,13 +713,13 @@
   {
    "fieldname": "persons_pickup2",
    "fieldtype": "Data",
-   "label": "Name"
+   "label": "Name of Person 2"
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "persons_pickup2_mobile",
    "fieldtype": "Data",
-   "label": "Mobile",
+   "label": "Mobile of Person 2",
    "length": 12
   },
   {
@@ -730,13 +730,13 @@
   {
    "fieldname": "persons_pickup3",
    "fieldtype": "Data",
-   "label": "Name"
+   "label": "Name of Person 3"
   },
   {
    "description": "e.g. 9715XXXXXXXX",
    "fieldname": "persons_pickup3_mobile",
    "fieldtype": "Data",
-   "label": "Mobile",
+   "label": "Mobile of Person 3",
    "length": 12
   },
   {
@@ -753,6 +753,7 @@
   {
    "fieldname": "media_permission",
    "fieldtype": "Select",
+   "label": "Media Permission",
    "options": "\nAgree\nAgree only for internal use\nDisagree\n\u0623\u0648\u0627\u0641\u0642\n\u0623\u0648\u0627\u0641\u0642 \u0639\u0644\u0649 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u062f\u0627\u062e\u0644\u064a \u0641\u0642\u0637\n\u063a\u064a\u0631 \u0645\u0648\u0627\u0641\u0642",
    "reqd": 1
   },
@@ -770,7 +771,7 @@
   {
    "fieldname": "confirm2",
    "fieldtype": "Select",
-   "label": "Confirm",
+   "label": "Confirm the Information",
    "options": "\nYes I Confirm\n\u0646\u0639\u0645 \u0623\u0648\u0627\u0641\u0642",
    "reqd": 1
   },
@@ -821,7 +822,7 @@
   {
    "fieldname": "guard_eid_att",
    "fieldtype": "Attach",
-   "label": "Guardian's Emirates ID"
+   "label": "Guardian's Emirates ID (Both sides)"
   },
   {
    "fieldname": "student_age",
@@ -915,8 +916,8 @@
    "label": "Medication Details"
   }
  ],
- "modified": "2020-10-28 13:30:03.407483",
- "modified_by": "Administrator",
+ "modified": "2020-11-19 10:39:25.238094",
+ "modified_by": "admin@dubaiautismcenter.ae",
  "module": "Front Desk",
  "name": "Online Student Registration",
  "owner": "Administrator",

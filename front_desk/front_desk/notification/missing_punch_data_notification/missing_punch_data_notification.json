@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.missed_punch_data==1",
+ "creation": "2020-11-10 17:06:00.688273",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Attendance",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>\n{{ doc.employee_name }} has an attedance record with missing punch data.<br>\n<br>\n{{ frappe.utils.get_url_to_form(doc.doctype, doc.name) }}<br>\n</p>\nNOTE:\nPlease send an email to HR to explain the reason within 24 hours of this notification to avoid salary deduction.\n\nHR",
+ "modified": "2020-12-06 10:50:34.949726",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Missing Punch Data Notification",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "email_by_role": "HR Manager"
+  },
+  {
+   "email_by_role": "IT Manager"
+  }
+ ],
+ "sender": "Notifications",
+ "sender_email": "notifications@dubaiautismcenter.ae",
+ "subject": "DAC Alert - Attendance Missing Punch Data"
+}
