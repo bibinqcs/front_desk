@@ -15,6 +15,16 @@ def get_data():
             ]
         },
         {
+            "label": _("Performance"),
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Appraisal Term",
+                    "description": _("Appraisal Term"),
+                },
+            ]
+        },
+        {
             "label": _("Settings"),
             "items": [
                 {

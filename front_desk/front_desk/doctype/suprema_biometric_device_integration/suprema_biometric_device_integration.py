@@ -349,6 +349,7 @@ def manual_tardiness(attendance, method):
 def salary_slip_deduction(salary_slip, method):
     base = base_salary(salary_slip)
     salary_slip.set('gross_pay_qcs', base)
+    get_leave_details(salary_slip)
     if not salary_slip.deductions:
         salary_slip.set("deductions", [])
         frappe.errprint("if not salary_slip.deductions")
@@ -358,6 +359,40 @@ def salary_slip_deduction(salary_slip, method):
     if not salary_slip.cancel_absent_days:
         calculate_absent_days(salary_slip)
         frappe.errprint("if not salary_slip.cancel_absent_days")
+
+
+def get_leave_details(salary_slip):
+    employee = salary_slip.employee
+    start_date = getdate(salary_slip.start_date)
+    end_date = getdate(salary_slip.end_date)
+    total_annual_leave = leave_days_count(employee, start_date, end_date, 'Annual Leave')
+    salary_slip.set('total_annual_leave', total_annual_leave)
+    total_sick_leave = leave_days_count(employee, start_date, end_date, 'Sick Leave')
+    salary_slip.set('total_sick_leave', total_sick_leave)
+    total_without_pay = leave_days_count(employee, start_date, end_date, 'Without Pay')
+    salary_slip.set('total_without_pay', total_without_pay)
+    total_compassionate_leave = leave_days_count(employee, start_date, end_date, 'Compassionate Leave')
+    salary_slip.set('total_compassionate_leave', total_compassionate_leave)
+    total_maternity_leave = leave_days_count(employee, start_date, end_date, 'Maternity Leave')
+    salary_slip.set('total_maternity_leave', total_maternity_leave)
+    total_education_leave = leave_days_count(employee, start_date, end_date, 'Education')
+    salary_slip.set('total_education_leave', total_education_leave)
+
+
+def leave_days_count(employee, start_date, end_date, leave_type='None'):
+    leave_days = 0
+    leave_days_list = frappe.db.get_list('Attendance', filters=[
+                        ['employee', '=', employee],
+                        ['docstatus', '=', 1],
+                        ['status', '=', 'On Leave'],
+                        ['leave_type', '=', leave_type],
+                        ['attendance_date', '<=', end_date],
+                        ['attendance_date', '>=', start_date]
+                    ],
+                    fields=['name']
+                    )
+    leave_days = len(leave_days_list)
+    return leave_days
 
 
 def calculate_tardiness(salary_slip):
@@ -415,7 +450,7 @@ def calculate_absent_days(salary_slip):
                     fields=['name']
                     )
     absent_days = len(absent_days_list)
-    salary_slip.set('absent_days', absent_days)
+    salary_slip.set('total_absent_days', absent_days)
     base = base_salary(salary_slip)
     full_day = full_day_deduction(base)
     amt = full_day * absent_days
