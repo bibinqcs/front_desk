@@ -352,13 +352,10 @@ def salary_slip_deduction(salary_slip, method):
     get_leave_details(salary_slip)
     if not salary_slip.deductions:
         salary_slip.set("deductions", [])
-        frappe.errprint("if not salary_slip.deductions")
     if not salary_slip.cancel_tardiness:
         calculate_tardiness(salary_slip)
-        frappe.errprint("if not salary_slip.cancel_tardiness")
     if not salary_slip.cancel_absent_days:
         calculate_absent_days(salary_slip)
-        frappe.errprint("if not salary_slip.cancel_absent_days")
 
 
 def get_leave_details(salary_slip):
