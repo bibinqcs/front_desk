@@ -10,6 +10,11 @@ def get_data():
             "items": [
                 {
                     "type": "doctype",
+                    "name": "Phone Directory",
+                    "description": _("Phone Directory."),
+                },
+                {
+                    "type": "doctype",
                     "name": "Call Log",
                     "description": _("Log Calls Recieved."),
                 },
