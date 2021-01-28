@@ -7,7 +7,8 @@ import frappe
 import json
 from frappe.utils.file_manager import save_url
 import requests
-from frappe.utils import get_url
+from frappe.utils import get_url, getdate
+from erpnext.hr.doctype.leave_application.leave_application import get_number_of_leave_days
 
 
 @frappe.whitelist()
@@ -25,6 +26,43 @@ def employee_salary(employee):
     ssadoc = frappe.get_doc("Salary Structure Assignment", ssa)
     base_salary = ssadoc.base
     return base_salary
+
+
+@frappe.whitelist()
+def get_approved_leaves_for_period(employee, leave_type):
+    from_date, to_date = frappe.db.get_value('Leave Period', {'is_active': 1}, ['from_date', 'to_date'])
+
+    query = """
+        select employee, leave_type, from_date, to_date, total_leave_days
+        from `tabLeave Application`
+        where employee=%(employee)s
+            and status="Approved"
+            and (from_date between %(from_date)s and %(to_date)s
+                or to_date between %(from_date)s and %(to_date)s
+                or (from_date < %(from_date)s and to_date > %(to_date)s))
+    """
+    if leave_type:
+        query += "and leave_type=%(leave_type)s"
+
+    leave_applications = frappe.db.sql(query, {
+        "from_date": from_date,
+        "to_date": to_date,
+        "employee": employee,
+        "leave_type": leave_type
+    }, as_dict=1)
+
+    leave_days = 0
+    for leave_app in leave_applications:
+        if leave_app.from_date >= getdate(from_date) and leave_app.to_date <= getdate(to_date):
+            leave_days += leave_app.total_leave_days
+        else:
+            if leave_app.from_date < getdate(from_date):
+                leave_app.from_date = from_date
+            if leave_app.to_date > getdate(to_date):
+                leave_app.to_date = to_date
+            leave_days += get_number_of_leave_days(employee, leave_type, leave_app.from_date, leave_app.to_date)
+
+    return leave_days
 
 
 @frappe.whitelist()
