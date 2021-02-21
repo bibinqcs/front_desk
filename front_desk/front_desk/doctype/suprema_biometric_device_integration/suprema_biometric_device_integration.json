@@ -163,7 +163,7 @@
   }
  ],
  "issingle": 1,
- "modified": "2020-10-21 23:20:23.834746",
+ "modified": "2021-02-01 09:55:43.812970",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Suprema Biometric Device Integration",
@@ -171,7 +171,6 @@
  "permissions": [
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "print": 1,
    "read": 1,
