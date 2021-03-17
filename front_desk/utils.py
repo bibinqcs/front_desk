@@ -131,3 +131,9 @@ def manage_staff_student_permission(student_group, method):
             up.for_value = st.student
             up.allow_for_all_roles = 0
             up.save()
+
+@frappe.whitelist()
+def delete_doc():
+    frappe.db.delete('Email Queue', {
+        'status': 'Error'
+    })
