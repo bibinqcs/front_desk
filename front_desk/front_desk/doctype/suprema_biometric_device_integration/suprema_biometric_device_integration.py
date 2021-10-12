@@ -223,10 +223,14 @@ def auto_absent(employee, attendance_date):
         holiday_list = employee.holiday_list
         grace_date = attendance_date - timedelta(days=absent_grace)
         grace_date_parsed = getdate(grace_date)
-        if getdate(grace_date) > getdate("2020-08-31"):
-            if not frappe.db.exists({'doctype': 'Attendance', 'employee': employee.name, 'attendance_date': grace_date}):
-                if not is_holiday(holiday_list, grace_date_parsed):
-                    mark_absent(employee, grace_date)
+        if not frappe.db.exists({
+            'doctype': 'Attendance',
+            'docstatus': 1,
+            'employee': employee.name,
+            'attendance_date': grace_date
+            }):
+            if not is_holiday(holiday_list, grace_date_parsed):
+                mark_absent(employee, grace_date)
 
 
 def mark_absent(employee, attendance_date):
