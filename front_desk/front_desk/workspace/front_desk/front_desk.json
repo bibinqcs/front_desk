@@ -95,6 +95,23 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "ABA Clinic",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Clinic Consultation Form",
+   "link_to": "Client Demographics",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Documents",
    "link_type": "DocType",
    "onboard": 0,
@@ -110,7 +127,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-09-12 13:49:34.729479",
+ "modified": "2022-03-08 14:17:12.499984",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Front Desk",
