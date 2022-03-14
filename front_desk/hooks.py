@@ -91,6 +91,10 @@ doc_events = {
     "Course Schedule": {
         "validate": "front_desk.front_desk.doctype.student_schedule.student_schedule.create_class_semester_schedule"
     },
+    "Parent Letter Request": {
+        "on_submit": "dac_qcs.controller.qrcode_controller.create_qrcode_image",
+        "on_cancel": "dac_qcs.controller.qrcode_controller.delete_qrcode_image"
+    },
     "Student Group": {
         "validate": "front_desk.utils.manage_staff_student_permission"
     },

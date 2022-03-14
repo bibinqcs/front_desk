@@ -8,8 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "barcode_test",
-  "barcode",
+  "qr_code_image_qcs",
   "posting_date",
   "column_break_4",
   "status",
@@ -252,21 +251,17 @@
    "label": "ID Number"
   },
   {
-   "fieldname": "barcode_test",
-   "fieldtype": "Data",
-   "label": "Barcode Test"
-  },
-  {
-   "fieldname": "barcode",
-   "fieldtype": "Barcode",
-   "label": "Barcode",
-   "options": "barcode_test"
+   "fieldname": "qr_code_image_qcs",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "QR Code URL"
   }
  ],
+ "image_field": "qr_code_image_qcs",
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-02-22 16:46:34.694834",
+ "modified": "2022-03-14 18:55:35.327425",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Parent Letter Request",
