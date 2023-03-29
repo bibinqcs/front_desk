@@ -7,21 +7,23 @@
  "docstatus": 0,
  "doctype": "Notification",
  "document_type": "Attendance",
- "enabled": 1,
+ "enabled": 0,
  "event": "New",
  "idx": 0,
  "is_standard": 1,
  "message": "<p>\nDear {{ doc.employee_name }},<br>\nPlease be advised you are missing attendance punch data on the following day\n<br>\n<b>Date :</b> {{ doc.attendance_date }}<br>\n<b>Time In :</b> {{ doc.time_in }}<br>\n<b>Time Out :</b> {{ doc.time_out }}<br>\n<br>\n</p>",
- "modified": "2021-05-27 13:18:06.525845",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "modified": "2022-05-12 13:14:06.015882",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Employee - Missing Punch Data Notification",
  "owner": "Administrator",
  "recipients": [
   {
-   "email_by_document_field": "user_id"
+   "receiver_by_document_field": "user_id"
   }
  ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
  "sender": "Notifications",
  "sender_email": "notifications@dubaiautismcenter.ae",
  "subject": "DAC Alert - Attendance Missing Punch Data"

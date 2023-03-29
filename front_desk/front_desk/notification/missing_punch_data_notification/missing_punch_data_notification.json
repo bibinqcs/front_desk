@@ -7,24 +7,26 @@
  "docstatus": 0,
  "doctype": "Notification",
  "document_type": "Attendance",
- "enabled": 1,
+ "enabled": 0,
  "event": "New",
  "idx": 0,
  "is_standard": 1,
  "message": "<p>\n{{ doc.employee_name }} has an attedance record with missing punch data.<br>\n<br>\n{{ frappe.utils.get_url_to_form(doc.doctype, doc.name) }}<br>\n</p>",
- "modified": "2021-05-27 13:17:20.322877",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "modified": "2022-05-12 13:14:06.054969",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Missing Punch Data Notification",
  "owner": "Administrator",
  "recipients": [
   {
-   "email_by_role": "HR Manager"
+   "receiver_by_role": "HR Manager"
   },
   {
-   "email_by_role": "IT Manager"
+   "receiver_by_role": "IT Manager"
   }
  ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
  "sender": "Notifications",
  "sender_email": "notifications@dubaiautismcenter.ae",
  "subject": "DAC Alert - Attendance Missing Punch Data"
