@@ -1,0 +1,218 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2023-02-15 13:00:45.447689",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "status",
+  "column_break_2",
+  "posting_date",
+  "section_break_5",
+  "first_name",
+  "last_name",
+  "job_title",
+  "language",
+  "column_break_10",
+  "email",
+  "phone_number",
+  "country",
+  "section_break_13",
+  "abat",
+  "qasps",
+  "autism_training",
+  "teachers_trainings",
+  "parents_trainings",
+  "others",
+  "column_break_20",
+  "discuss",
+  "section_break_dllkl",
+  "html_message_en",
+  "acknowledgment",
+  "column_break_pthtf",
+  "html_message_ar"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "DAC-WEB-TR-.YY..MM..DD..###"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Not Interested\nContacted\nRegistered"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "(As per passport) --- (\u0648\u0641\u0642\u0627 \u0644\u062c\u0648\u0627\u0632 \u0627\u0644\u0633\u0641\u0631)",
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "description": "(As per passport) --- (\u0648\u0641\u0642\u0627 \u0644\u062c\u0648\u0627\u0632 \u0627\u0644\u0633\u0641\u0631)",
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "job_title",
+   "fieldtype": "Data",
+   "label": "Job Title"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Preferred Training Language",
+   "options": "\nArabic\nEnglish",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "label": "Training Interests"
+  },
+  {
+   "default": "0",
+   "fieldname": "abat",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "ABAT"
+  },
+  {
+   "default": "0",
+   "fieldname": "qasps",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "QASPS"
+  },
+  {
+   "default": "0",
+   "fieldname": "autism_training",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Autism Training"
+  },
+  {
+   "default": "0",
+   "fieldname": "teachers_trainings",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Teachers Trainings"
+  },
+  {
+   "default": "0",
+   "fieldname": "parents_trainings",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Parents Trainings"
+  },
+  {
+   "default": "0",
+   "fieldname": "others",
+   "fieldtype": "Check",
+   "label": "Others"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "discuss",
+   "fieldtype": "Small Text",
+   "label": "Additional Questions to Discuss"
+  },
+  {
+   "fieldname": "section_break_dllkl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "html_message_en",
+   "fieldtype": "HTML",
+   "options": "<span>\nI confirm the accuracy of information stated in this application\n</span>"
+  },
+  {
+   "fieldname": "acknowledgment",
+   "fieldtype": "Select",
+   "options": "\nI Confirm",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pthtf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "html_message_ar",
+   "fieldtype": "HTML",
+   "options": "<span dir=\"rtl\" style=\"float: right;\">\n \u0627\u0642\u0631 \u0628\u0635\u062d\u0629 \u062c\u0645\u064a\u0639 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0648\u0627\u0631\u062f\u0629 \u0641\u064a \u0647\u0630\u0627 \u0627\u0644\u0637\u0644\u0628   \n</span>"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-08-10 19:49:40.916698",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Website Training Registration",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
