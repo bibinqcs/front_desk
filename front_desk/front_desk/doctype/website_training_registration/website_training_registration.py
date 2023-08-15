@@ -9,7 +9,7 @@ class WebsiteTrainingRegistration(Document):
 
     @frappe.whitelist()
     def create_customer(self):
-        customer_name = self.first_name + self.last_name
+        customer_name = self.first_name + " " + self.last_name
 
         customer = frappe.new_doc("Customer")
         customer.update(
@@ -47,3 +47,6 @@ class WebsiteTrainingRegistration(Document):
             }
         )
         customer.save(ignore_permissions=True)
+
+        self.customer = customer.name
+        self.save()
