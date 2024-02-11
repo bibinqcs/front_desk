@@ -79,14 +79,6 @@ web_include_css = "/assets/front_desk/css/custom.css"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#     }
-# }
-
 doc_events = {
     "Course Schedule": {
         "validate": "front_desk.front_desk.doctype.student_schedule.student_schedule.create_class_semester_schedule"
@@ -97,36 +89,8 @@ doc_events = {
     },
     "Student Group": {
         "validate": "front_desk.utils.manage_staff_student_permission"
-    },
-    "Salary Slip": {
-        "validate": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.salary_slip_deduction"
-    },
-    "Attendance": {
-        "before_save": "front_desk.front_desk.doctype.suprema_biometric_device_integration.suprema_biometric_device_integration.attendance_custom_validate"
     }
 }
-
-# Scheduled Tasks
-# ---------------
-
-# scheduler_events = {
-#    "all": [
-#        "front_desk.tasks.all"
-#    ],
-#    "daily": [
-#        "front_desk.common.sync_access_log",
-#        "front_desk.common.mark_attendance",
-#    ]
-#    "hourly": [
-#        "front_desk.tasks.hourly"
-#    ],
-#    "weekly": [
-#        "front_desk.tasks.weekly"
-#    ]
-#    "monthly": [
-#        "front_desk.tasks.monthly"
-#    ]
-# }
 
 # Scheduled Tasks
 # ---------------

@@ -127,7 +127,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-03-10 10:44:44.920120",
+ "modified": "2024-01-24 11:08:45.045751",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Front Desk",
@@ -145,6 +145,24 @@
    "doc_view": "List",
    "label": "Call Log",
    "link_to": "Call Log",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Initial Consultation Feedback Survey",
+   "link_to": "Initial Consultation Feedback Survey",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Parents Satisfaction Survey Clinic",
+   "link_to": "Parents Satisfaction Survey Clinic",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Website Training Registration",
+   "link_to": "Website Training Registration",
    "type": "DocType"
   }
  ]

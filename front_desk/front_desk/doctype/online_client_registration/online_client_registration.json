@@ -1,0 +1,979 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-08-27 18:15:13.840580",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "column_break_2",
+  "naming_series",
+  "status",
+  "section_break_5",
+  "existing_client",
+  "column_break_7",
+  "existing_client_check",
+  "client",
+  "get_client_details",
+  "column_break_11",
+  "chk_date_of_birth",
+  "section_break_13",
+  "client_first_name",
+  "column_break_15",
+  "client_middle_name",
+  "column_break_17",
+  "client_last_name",
+  "section_break_19",
+  "client_full_name",
+  "date_of_birth",
+  "gender",
+  "client_age",
+  "religion",
+  "sibling_number",
+  "language",
+  "child_live_with",
+  "parent_status",
+  "column_break_16",
+  "nationality",
+  "place_of_birth",
+  "student_passport_no",
+  "expiry_date",
+  "valid_eid",
+  "client_eid_no",
+  "eid_expiry_date",
+  "valid_pod",
+  "client_pod_no",
+  "diagnosis_report",
+  "section_break24",
+  "emirate",
+  "building_no",
+  "street_no",
+  "column_break17",
+  "area",
+  "apt_villa_no",
+  "makani_no",
+  "section_break31",
+  "guardian_full_name",
+  "guardian_relation",
+  "guardian_email",
+  "guardian_mobile_no",
+  "column_break7",
+  "guardian_nationality",
+  "guardian_passport_number",
+  "guardian_pp_expiry",
+  "guardian_id",
+  "guardian_id_expiry",
+  "s1",
+  "father_name",
+  "father_prof",
+  "c2",
+  "father_nationality",
+  "father_mob",
+  "s2",
+  "mother_name",
+  "mother_prof",
+  "c3",
+  "mother_nationality",
+  "mother_mob",
+  "section_break38",
+  "first_contact",
+  "emergency_contact_name_1",
+  "emergency_contact_no_1",
+  "column_break8",
+  "emergency_contact_name_2",
+  "emergency_contact_no_2",
+  "section_break8",
+  "blood_grp",
+  "section_break11",
+  "allergies",
+  "column_break9",
+  "allergy_type",
+  "allergy_period_treatment",
+  "section_break5",
+  "seizures",
+  "column_break10",
+  "seizure_type",
+  "seizure_period_type",
+  "section_break6",
+  "other_diseases_or_medical_conditions",
+  "column_break12",
+  "other_diseases_type",
+  "other_diseases_period",
+  "medication",
+  "medication_details",
+  "section_break13",
+  "column_break22",
+  "persons_pickup1",
+  "persons_pickup1_mobile",
+  "data_99",
+  "persons_pickup2",
+  "persons_pickup2_mobile",
+  "column_break14",
+  "persons_pickup3",
+  "persons_pickup3_mobile",
+  "section_break15",
+  "html",
+  "media_permission",
+  "section_break16",
+  "html2",
+  "confirm2",
+  "attachments_section",
+  "report_att",
+  "child_pic_att",
+  "child_birth_att",
+  "child_pp_att",
+  "child_eid_att",
+  "guard_pp_att",
+  "guard_eid_att",
+  "section_break17",
+  "observation",
+  "dol",
+  "remarks",
+  "c4",
+  "acp_rej",
+  "interested",
+  "observation_date",
+  "s4",
+  "certificate",
+  "observation_list",
+  "reason",
+  "comments",
+  "section_break_135",
+  "guardians"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "DAC-OCR-.YY.-.MM.-.DD.-.###"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Interested\nAssessment Ongoing\nReady for Admission\nWaiting for Fee Payment\nOn Hold\nAdmission Complete\nRejected"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "chk_date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "label": "Child Information"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date of Birth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "Female\nMale\n\u0623\u0646\u062b\u0649\n\u0630\u0643\u0631",
+   "reqd": 1
+  },
+  {
+   "fieldname": "religion",
+   "fieldtype": "Link",
+   "label": "Religion",
+   "options": "Religion",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sibling_number",
+   "fieldtype": "Select",
+   "label": "How many brothers and sisters does the child have?",
+   "options": "\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10",
+   "reqd": 1
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Select",
+   "label": "Education Preferred Language",
+   "options": "\nArabic\nEnglish\n\u0627\u0644\u0639\u0631\u0628\u064a\u0629\n\u0627\u0644\u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629",
+   "reqd": 1
+  },
+  {
+   "fieldname": "child_live_with",
+   "fieldtype": "Select",
+   "label": "Guardians who live with the child?",
+   "options": "\nBoth parents\nFather\nMother\nOther"
+  },
+  {
+   "fieldname": "parent_status",
+   "fieldtype": "Select",
+   "label": "Parent Marital Status:",
+   "options": "\nMarried\nDivorced\nWidowed\nBoth Parents Passed Away\nOther\n\u0645\u062a\u0632\u0648\u062c\u0627\u0646\n\u0645\u0637\u0644\u0642\u0627\u0646\n\u0623\u0631\u0645\u0644/\u0623\u0631\u0645\u0644\u0629\n\u063a\u064a\u0631 \u0630\u0644\u0643",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Link",
+   "label": "Nationality",
+   "options": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "place_of_birth",
+   "fieldtype": "Link",
+   "label": "Place of Birth",
+   "options": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "student_passport_no",
+   "fieldtype": "Data",
+   "label": "Passport Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Passport Expiry Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "valid_eid",
+   "fieldtype": "Select",
+   "label": "Does the client have an Emirates ID?",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.valid_eid == 'Yes'",
+   "fieldname": "eid_expiry_date",
+   "fieldtype": "Date",
+   "label": "ID Expiry Date"
+  },
+  {
+   "fieldname": "valid_pod",
+   "fieldtype": "Select",
+   "label": "Does the client have a valid POD (special need) Card?",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "fieldname": "diagnosis_report",
+   "fieldtype": "Select",
+   "label": "Does the child have autism diagnosis report?",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break24",
+   "fieldtype": "Section Break",
+   "label": "Address Information"
+  },
+  {
+   "fieldname": "emirate",
+   "fieldtype": "Select",
+   "label": "Emirate",
+   "options": "\nAbu Dhabi\nDubai\nSharjah\nAjman\nFujairah\nRas Al Khaimah\nUmm Al Quwain\n\u0623\u0628\u0648\u0638\u0628\u064a\n\u062f\u0628\u064a\n\u0627\u0644\u0634\u0627\u0631\u0642\u0629\n\u0639\u062c\u0645\u0627\u0646\n\u0627\u0644\u0641\u062c\u064a\u0631\u0629\n\u0631\u0623\u0633 \u0627\u0644\u062e\u064a\u0645\u0629\n\u0623\u0645 \u0627\u0644\u0642\u064a\u0648\u064a\u0646",
+   "reqd": 1
+  },
+  {
+   "fieldname": "building_no",
+   "fieldtype": "Data",
+   "label": "Building Name / Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "street_no",
+   "fieldtype": "Data",
+   "label": "Street Number"
+  },
+  {
+   "fieldname": "column_break17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "area",
+   "fieldtype": "Data",
+   "label": "Area",
+   "reqd": 1
+  },
+  {
+   "fieldname": "apt_villa_no",
+   "fieldtype": "Data",
+   "label": "Apartment / Villa Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "makani_no",
+   "fieldtype": "Data",
+   "label": "Makani Number"
+  },
+  {
+   "fieldname": "section_break31",
+   "fieldtype": "Section Break",
+   "label": "Guardian's Information"
+  },
+  {
+   "fieldname": "guardian_full_name",
+   "fieldtype": "Data",
+   "label": "Guardian's Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guardian_relation",
+   "fieldtype": "Select",
+   "label": "Relation",
+   "options": "\nFather\nMother\nOthers\n\u0648\u0627\u0644\u062f\n\u0648\u0627\u0644\u062f\u0629\n\u063a\u064a\u0631 \u0630\u0644\u0643",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guardian_email",
+   "fieldtype": "Data",
+   "label": "Guardian's Email Address",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "guardian_mobile_no",
+   "fieldtype": "Data",
+   "label": "Guardian's Mobile Number",
+   "length": 12,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "guardian_nationality",
+   "fieldtype": "Link",
+   "label": "Guardian Nationality",
+   "options": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guardian_passport_number",
+   "fieldtype": "Data",
+   "label": "Guardian Passport No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guardian_pp_expiry",
+   "fieldtype": "Date",
+   "label": "Expiry Date of the Guardian's Passport",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guardian_id",
+   "fieldtype": "Data",
+   "label": "Guardian Emirates ID No",
+   "length": 15
+  },
+  {
+   "fieldname": "guardian_id_expiry",
+   "fieldtype": "Date",
+   "label": "Expiry Date of the Guardian's EID"
+  },
+  {
+   "depends_on": "eval:doc.guardian_relation!='Father'",
+   "fieldname": "s1",
+   "fieldtype": "Section Break",
+   "label": "Father Information"
+  },
+  {
+   "fieldname": "father_name",
+   "fieldtype": "Data",
+   "label": "Father's Name"
+  },
+  {
+   "fieldname": "father_prof",
+   "fieldtype": "Data",
+   "label": "Father's Profession"
+  },
+  {
+   "fieldname": "c2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "father_nationality",
+   "fieldtype": "Link",
+   "label": "Father's Nationality",
+   "options": "Country"
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "father_mob",
+   "fieldtype": "Data",
+   "label": "Father's Mobile",
+   "length": 12
+  },
+  {
+   "depends_on": "eval:doc.guardian_relation!='Mother'",
+   "fieldname": "s2",
+   "fieldtype": "Section Break",
+   "label": "Mother Information"
+  },
+  {
+   "fieldname": "mother_name",
+   "fieldtype": "Data",
+   "label": "Mother's Name"
+  },
+  {
+   "fieldname": "mother_prof",
+   "fieldtype": "Data",
+   "label": "Mother's Profession"
+  },
+  {
+   "fieldname": "c3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mother_nationality",
+   "fieldtype": "Link",
+   "label": "Mother's Nationality",
+   "options": "Country"
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "mother_mob",
+   "fieldtype": "Data",
+   "label": "Mother's Mobile",
+   "length": 12
+  },
+  {
+   "fieldname": "section_break38",
+   "fieldtype": "Section Break",
+   "label": "Alternative Contacts (if the guardian is out of reach)"
+  },
+  {
+   "fieldname": "first_contact",
+   "fieldtype": "Column Break",
+   "label": "First Contact"
+  },
+  {
+   "fieldname": "emergency_contact_name_1",
+   "fieldtype": "Data",
+   "label": "Name of the First Contact",
+   "reqd": 1
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "emergency_contact_no_1",
+   "fieldtype": "Data",
+   "label": "Mobile of the First Contact",
+   "length": 12,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break8",
+   "fieldtype": "Column Break",
+   "label": "Second Contact"
+  },
+  {
+   "fieldname": "emergency_contact_name_2",
+   "fieldtype": "Data",
+   "label": "Name of Second Contact"
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "emergency_contact_no_2",
+   "fieldtype": "Data",
+   "label": "Mobile of Second Contact",
+   "length": 12
+  },
+  {
+   "fieldname": "section_break8",
+   "fieldtype": "Section Break",
+   "label": "CURRENT MEDICAL SITUATION"
+  },
+  {
+   "fieldname": "blood_grp",
+   "fieldtype": "Select",
+   "label": "Blood Group",
+   "options": "\nA+\nA-\nB+\nB-\nO+\nO-\nAB+\nAB-"
+  },
+  {
+   "fieldname": "section_break11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "allergies",
+   "fieldtype": "Select",
+   "label": "Allergies",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.allergies == 'Yes'",
+   "fieldname": "allergy_type",
+   "fieldtype": "Data",
+   "label": "Allergy Type"
+  },
+  {
+   "depends_on": "eval:doc.allergies == 'Yes'",
+   "fieldname": "allergy_period_treatment",
+   "fieldtype": "Data",
+   "label": "Allergy Period Treatment"
+  },
+  {
+   "fieldname": "section_break5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "seizures",
+   "fieldtype": "Select",
+   "label": "Seizures",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.seizures == 'Yes'",
+   "fieldname": "seizure_type",
+   "fieldtype": "Data",
+   "label": "Seizure Type"
+  },
+  {
+   "depends_on": "eval:doc.seizures == 'Yes'",
+   "fieldname": "seizure_period_type",
+   "fieldtype": "Data",
+   "label": "Seizure Period Type"
+  },
+  {
+   "fieldname": "section_break6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "other_diseases_or_medical_conditions",
+   "fieldtype": "Select",
+   "label": "Other diseases or medical conditions",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.other_diseases_or_medical_conditions == 'Yes'",
+   "fieldname": "other_diseases_type",
+   "fieldtype": "Data",
+   "label": "Other Diseases Type"
+  },
+  {
+   "depends_on": "eval:doc.other_diseases_or_medical_conditions == 'Yes'",
+   "fieldname": "other_diseases_period",
+   "fieldtype": "Data",
+   "label": "Other Diseases Period"
+  },
+  {
+   "fieldname": "medication",
+   "fieldtype": "Select",
+   "label": "Medication",
+   "options": "\nYes\nNo\n\u0646\u0639\u0645\n\u0644\u0627",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.medication==\"Yes\"",
+   "fieldname": "medication_details",
+   "fieldtype": "Data",
+   "label": "Medication Details"
+  },
+  {
+   "fieldname": "section_break13",
+   "fieldtype": "Section Break",
+   "label": "Person/s allowed to pick up the child from school"
+  },
+  {
+   "fieldname": "column_break22",
+   "fieldtype": "Column Break",
+   "label": "Person 1"
+  },
+  {
+   "fieldname": "persons_pickup1",
+   "fieldtype": "Data",
+   "label": "Name of Perosn 1",
+   "reqd": 1
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "persons_pickup1_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile of Person 1",
+   "length": 12,
+   "reqd": 1
+  },
+  {
+   "fieldname": "data_99",
+   "fieldtype": "Column Break",
+   "label": "Person 2"
+  },
+  {
+   "fieldname": "persons_pickup2",
+   "fieldtype": "Data",
+   "label": "Name of Person 2"
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "persons_pickup2_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile of Person 2",
+   "length": 12
+  },
+  {
+   "fieldname": "column_break14",
+   "fieldtype": "Column Break",
+   "label": "Person 3"
+  },
+  {
+   "fieldname": "persons_pickup3",
+   "fieldtype": "Data",
+   "label": "Name of Person 3"
+  },
+  {
+   "description": "e.g. 9715XXXXXXXX",
+   "fieldname": "persons_pickup3_mobile",
+   "fieldtype": "Data",
+   "label": "Mobile of Person 3",
+   "length": 12
+  },
+  {
+   "fieldname": "section_break15",
+   "fieldtype": "Section Break",
+   "label": "Media Release Consent"
+  },
+  {
+   "fieldname": "html",
+   "fieldtype": "HTML",
+   "label": "html",
+   "options": "I hereby agree and give permission for the Dubai Autism Center (DAC) to record, film, photograph, my child\u2019s image, name, student work, and performance (hereinafter collectively referred as \u201cWorks\u201d) and to display, publish or distribute these Works for the purpose of awareness or internal use on the DAC brochures, newsletters, website, social media, newspapers, magazines and/or for broadcasting on television or radio as determined by the DAC. "
+  },
+  {
+   "fieldname": "media_permission",
+   "fieldtype": "Select",
+   "label": "Media Permission",
+   "options": "\nAgree\nAgree only for internal use\nDisagree\n\u0623\u0648\u0627\u0641\u0642\n\u0623\u0648\u0627\u0641\u0642 \u0639\u0644\u0649 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u062f\u0627\u062e\u0644\u064a \u0641\u0642\u0637\n\u063a\u064a\u0631 \u0645\u0648\u0627\u0641\u0642",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break16",
+   "fieldtype": "Section Break",
+   "label": "Acknowledgement"
+  },
+  {
+   "fieldname": "html2",
+   "fieldtype": "HTML",
+   "label": "html2",
+   "options": "I confirm that the information given in this form is correct and in case of any changes in the future I will inform the center. "
+  },
+  {
+   "fieldname": "confirm2",
+   "fieldtype": "Select",
+   "label": "Confirm the Information",
+   "options": "\nYes I Confirm\n\u0646\u0639\u0645 \u0623\u0648\u0627\u0641\u0642",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attachments_section",
+   "fieldtype": "Section Break",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "report_att",
+   "fieldtype": "Attach",
+   "label": "Diagnosis Report"
+  },
+  {
+   "fieldname": "child_pic_att",
+   "fieldtype": "Attach",
+   "label": "Child's Photograph",
+   "reqd": 1
+  },
+  {
+   "fieldname": "child_birth_att",
+   "fieldtype": "Attach",
+   "label": "Child's Birth Certificate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "child_pp_att",
+   "fieldtype": "Attach",
+   "label": "Child's Passport",
+   "reqd": 1
+  },
+  {
+   "fieldname": "child_eid_att",
+   "fieldtype": "Attach",
+   "label": "Child's Emirates ID"
+  },
+  {
+   "fieldname": "guard_pp_att",
+   "fieldtype": "Attach",
+   "label": "Guardian's Passport",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guard_eid_att",
+   "fieldtype": "Attach",
+   "label": "Guardian's Emirates ID (Both sides)"
+  },
+  {
+   "fieldname": "section_break17",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "observation",
+   "fieldtype": "Select",
+   "label": "Observation Required",
+   "options": "Yes\nNo\n\u0646\u0639\u0645\n\u0644\u0627"
+  },
+  {
+   "default": "Today",
+   "fieldname": "dol",
+   "fieldtype": "Date",
+   "label": "Date of Listing"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "c4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "acp_rej",
+   "fieldtype": "Select",
+   "label": "Accepted / Rejected",
+   "options": "Tentative\nRegistered\nOn Hold\nNot Interested\nRejected"
+  },
+  {
+   "fieldname": "interested",
+   "fieldtype": "Select",
+   "label": "Interested",
+   "options": "Not yet\nYes\nMaybe\nNo answer\nNo contact\nInternational"
+  },
+  {
+   "fieldname": "observation_date",
+   "fieldtype": "Date",
+   "label": "Observation Date"
+  },
+  {
+   "fieldname": "s4",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "depends_on": "eval:doc.observation==\"No\"",
+   "fieldname": "certificate",
+   "fieldtype": "Attach",
+   "label": "Certificate"
+  },
+  {
+   "depends_on": "eval:doc.observation==\"Yes\"",
+   "fieldname": "observation_list",
+   "fieldtype": "Table",
+   "label": "Check List",
+   "options": "Observation Performed"
+  },
+  {
+   "depends_on": "eval:doc.status==\"Rejected\"",
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "section_break_135",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "guardians",
+   "fieldtype": "Table",
+   "options": "Waitlist Guardian"
+  },
+  {
+   "fieldname": "existing_client",
+   "fieldtype": "Select",
+   "label": "Is the child registered at the center?",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.existing_client=='Yes'",
+   "fieldname": "existing_client_check",
+   "fieldtype": "Section Break",
+   "label": "Existing Client"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Data",
+   "label": "Client ID"
+  },
+  {
+   "fieldname": "get_client_details",
+   "fieldtype": "Button",
+   "label": "Get Client Details"
+  },
+  {
+   "fieldname": "client_first_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "client_middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "client_last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "client_full_name",
+   "fieldtype": "Data",
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_age",
+   "fieldtype": "Data",
+   "label": "Age",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.valid_eid == 'Yes'",
+   "fieldname": "client_eid_no",
+   "fieldtype": "Data",
+   "label": "Emirates ID Number",
+   "length": 15
+  },
+  {
+   "depends_on": "eval:doc.valid_pod == 'Yes'",
+   "fieldname": "client_pod_no",
+   "fieldtype": "Data",
+   "label": "People of Determination Card Number"
+  }
+ ],
+ "links": [],
+ "modified": "2023-08-27 18:22:08.716031",
+ "modified_by": "Administrator",
+ "module": "Front Desk",
+ "name": "Online Client Registration",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Reception",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Instructor",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "client_full_name",
+ "track_changes": 1
+}

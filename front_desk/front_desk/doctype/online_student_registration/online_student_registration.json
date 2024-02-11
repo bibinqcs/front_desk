@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
@@ -175,6 +176,7 @@
   {
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_standard_filter": 1,
    "label": "Status",
    "options": "Interested\nAssessment Ongoing\nReady for Admission\nWaiting for Fee Payment\nOn Hold\nAdmission Complete\nRejected"
   },
@@ -916,8 +918,9 @@
    "label": "Medication Details"
   }
  ],
- "modified": "2020-11-19 10:39:25.238094",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "links": [],
+ "modified": "2023-10-05 10:24:14.772451",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Online Student Registration",
  "owner": "Administrator",

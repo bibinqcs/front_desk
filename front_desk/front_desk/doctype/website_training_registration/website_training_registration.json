@@ -3,6 +3,7 @@
  "autoname": "naming_series:",
  "creation": "2023-02-15 13:00:45.447689",
  "doctype": "DocType",
+ "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
@@ -21,8 +22,12 @@
   "phone_number",
   "country",
   "section_break_13",
+  "abat_sup",
+  "fba",
   "abat",
   "qasps",
+  "vb_mapp",
+  "bm_btpc",
   "autism_training",
   "teachers_trainings",
   "parents_trainings",
@@ -48,7 +53,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Not Interested\nContacted\nRegistered"
+   "options": "New\nNot Interested\nContacted\nRegistered"
   },
   {
    "fieldname": "column_break_2",
@@ -197,16 +202,61 @@
    "fieldtype": "Link",
    "label": "Customer",
    "options": "Customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "fba",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Functional Behavioral Assessment (FBA) "
+  },
+  {
+   "default": "0",
+   "fieldname": "vb_mapp",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Verbal Behavior Milestones Assessment and Placement Program (VB-MAPP) "
+  },
+  {
+   "default": "0",
+   "fieldname": "bm_btpc",
+   "fieldtype": "Check",
+   "in_standard_filter": 1,
+   "label": "Behavior Management: A Basic Training for Parents and Caregivers"
+  },
+  {
+   "default": "0",
+   "fieldname": "abat_sup",
+   "fieldtype": "Check",
+   "label": "ABAT Supervision "
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-08-15 10:56:51.598257",
+ "modified": "2024-01-19 09:39:11.939907",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Website Training Registration",
  "owner": "Administrator",
  "permissions": [
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Website Manager",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Training Manager",
+   "write": 1
+  },
   {
    "create": 1,
    "delete": 1,
@@ -221,5 +271,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "title_field": "first_name"
 }
