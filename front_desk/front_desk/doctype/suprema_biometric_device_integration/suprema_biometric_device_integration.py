@@ -12,7 +12,7 @@ from frappe.utils import today, getdate, get_time
 
 from datetime import timedelta, datetime
 
-from erpnext.hr.doctype.holiday_list.holiday_list import is_holiday
+from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from dac_qcs.utils.common import formatted_time
 
 
