@@ -26,6 +26,7 @@
   "fba",
   "abat",
   "qasps",
+  "qba",
   "vb_mapp",
   "bm_btpc",
   "autism_training",
@@ -229,11 +230,17 @@
    "fieldname": "abat_sup",
    "fieldtype": "Check",
    "label": "ABAT Supervision "
+  },
+  {
+   "default": "0",
+   "fieldname": "qba",
+   "fieldtype": "Check",
+   "label": "QBA"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-19 09:39:11.939907",
+ "modified": "2024-06-27 13:39:17.692431",
  "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "Website Training Registration",

@@ -22,8 +22,8 @@
  "language": "en",
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2022-06-09 08:17:38.590148",
- "modified_by": "admin@dubaiautismcenter.ae",
+ "modified": "2024-03-07 10:48:13.954100",
+ "modified_by": "Administrator",
  "module": "Front Desk",
  "name": "student-application",
  "owner": "Administrator",
@@ -1374,6 +1374,18 @@
    "max_value": 0,
    "read_only": 0,
    "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "family_book",
+   "fieldtype": "Attach",
+   "hidden": 0,
+   "label": "Family Book (for UAE Nationality)",
+   "max_length": 0,
+   "max_value": 0,
+   "read_only": 0,
+   "reqd": 0,
    "show_in_filter": 0
   }
  ]
