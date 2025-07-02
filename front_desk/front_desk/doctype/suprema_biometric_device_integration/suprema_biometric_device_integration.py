@@ -308,3 +308,10 @@ def new_attendance(employee, attendance_date, time_in, time_out):
     attendance.time_in = time_in
     attendance.time_out = time_out
     attendance.submit()
+
+
+def test_fn():
+    from_date = "2024-08-18"
+    to_date = "2024-08-19"
+    api_manual_sync(from_date, to_date, "4102")
+    api_manual_sync(from_date, to_date, "4865")
