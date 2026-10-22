@@ -30,13 +30,16 @@ def execute(filters=None):
     return get_employee_columns(), group_rows(rows, by="employee")
 
 
-def hours(value):
-    """Time fields come back as timedelta; render as decimal hours so they sum."""
-    if not value:
+def hours(seconds):
+    """Duration fields store seconds; convert to decimal hours.
+
+    Full precision on purpose - rounding here and then summing makes the per-record
+    error accumulate. Callers round once, at display time, so totals stay exact
+    regardless of how the rows are grouped.
+    """
+    if not seconds:
         return 0.0
-    if hasattr(value, "total_seconds"):
-        return flt(value.total_seconds() / 3600.0, 2)
-    return flt(value, 2)
+    return flt(seconds) / 3600.0
 
 
 def get_conditions(filters):
@@ -57,7 +60,10 @@ def get_attendance(filters):
         select
             a.name, a.employee, a.employee_name, e.department, a.attendance_date,
             a.status, a.shift, a.time_in, a.time_out, a.start_time, a.end_time,
-            a.total_working_hours, a.late_in, a.early_out, a.late_entry, a.early_exit
+            a.total_working_hours_duration as total_working_hours,
+            a.late_in_duration as late_in,
+            a.early_out_duration as early_out,
+            a.late_entry, a.early_exit
         from `tabAttendance` a
         left join `tabEmployee` e on e.name = a.employee
         where {conditions}
@@ -135,10 +141,9 @@ def group_rows(rows, by):
         elif r.status == "Half Day":
             s["half_days"] += 1
 
-        # Duration fields are only meaningful on Present records. On Leave / Half Day
-        # rows carry junk here: attendance_clear_time_fields() writes "" into the Time
-        # fields, which lands as a timestamp-like value instead of NULL and would
-        # otherwise add thousands of phantom hours.
+        # Reads the Duration columns, which are NULL wherever the underlying value was
+        # never trustworthy - so no junk-filtering is needed here any more. Still scoped
+        # to Present because hours/tardiness are only meaningful for a worked day.
         if r.status == "Present":
             s["total_working_hours"] += hours(r.total_working_hours)
             s["late_in_hours"] += hours(r.late_in)
@@ -219,9 +224,9 @@ def get_detail_rows(rows):
             "status": r.status, "shift": r.shift,
             "time_in": as_clock(r.time_in) if present else "",
             "time_out": as_clock(r.time_out) if present else "",
-            "total_working_hours": hours(r.total_working_hours) if present else 0.0,
-            "late_in_hours": hours(r.late_in) if present else 0.0,
-            "early_out_hours": hours(r.early_out) if present else 0.0,
+            "total_working_hours": flt(hours(r.total_working_hours), 2) if present else 0.0,
+            "late_in_hours": flt(hours(r.late_in), 2) if present else 0.0,
+            "early_out_hours": flt(hours(r.early_out), 2) if present else 0.0,
             "name": r.name,
         })
     return data
